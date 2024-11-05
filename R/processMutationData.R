@@ -57,3 +57,58 @@ extractMutationData <- function(mutation_data, selected_columns = c("Chromosome"
   # Return the selected data
   return(selected_data)
 }
+
+
+#' Filter Mutation Data by Specified Conditions
+#'
+#' This function filters mutation data based on user-specified conditions for any columns in the dataset.
+#'
+#' @param data A data frame containing mutation data, such as `UCS.mutations`.
+#' @param conditions A list of conditions to filter by, where each element is named with a column name
+#'                   and contains the value or range to filter on. Example: `list(Chromosome = "1", Variant_Type = "SNP")`.
+#' @return A filtered data frame that matches the specified conditions.
+#'
+#' @examples
+#' \dontrun{
+#' # Filter by chromosome and variant type
+#' filtered_data <- filterMutations(UCS.mutations, conditions = list(Chromosome = "1", Variant_Type = "SNP"))
+#'
+#' # Filter by start position range and a specific gene symbol
+#' filtered_data <- filterMutations(UCS.mutations, conditions = list(Start_position = c(100000, 200000), Hugo_Symbol = "TP53"))
+#' }
+#'
+#' @export
+filterMutations <- function(data, conditions) {
+  # Check if conditions are provided
+  if (is.null(conditions) || length(conditions) == 0) {
+    stop("Please provide a list of conditions to filter by.")
+  }
+
+  # Apply each condition sequentially
+  for (col in names(conditions)) {
+    if (!col %in% names(data)) {
+      stop(paste("Column", col, "not found in the data."))
+    }
+
+    # Get condition for the column
+    condition <- conditions[[col]]
+
+    # Apply the condition based on its type
+    if (is.vector(condition) && length(condition) == 1) {
+      # Exact match
+      data <- data[data[[col]] == condition, ]
+    } else if (is.vector(condition) && length(condition) == 2) {
+      # Range filtering for numeric columns
+      if (is.numeric(data[[col]])) {
+        data <- data[data[[col]] >= condition[1] & data[[col]] <= condition[2], ]
+      } else {
+        stop(paste("Range filtering is only applicable to numeric columns. Column", col, "is not numeric."))
+      }
+    } else {
+      stop("Invalid condition format. Use a single value or a two-element numeric vector for range filtering.")
+    }
+  }
+
+  return(data)
+}
+
