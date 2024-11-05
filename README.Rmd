@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 # CancerMutAnalyzer
-Cancer Mutation Analysis and Visualization Suite 
+Cancer Mutation Analysis and Visualization Suite.
 
 <!-- badges: start -->
 <!-- https://www.codefactor.io/repository/github/anjalisilva/testingpackage/issues -->
