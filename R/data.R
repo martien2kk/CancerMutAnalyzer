@@ -11,14 +11,15 @@
 #'   \item{Reference_Allele}{The base(s) found on the reference genome at the mutation position.}
 #'   \item{Tumor_Seq_Allele2}{The observed allele sequence in the tumor sample at the mutation position.}
 #'   \item{Tumor_Sample_Barcode}{A unique identifier for the tumor sample in which the mutation was detected.}
+#'   \item{SNP_mutation}{The last three characters of the `Genome_Change` column, representing the single nucleotide polymorphism (SNP) mutation type (e.g., "G>T").}
 #'   \item{Variant_Type}{The type of mutation, such as single nucleotide polymorphism (SNP), deletion, or insertion.}
 #' }
 #'
 #' @examples
 #' \dontrun{
-#'  UCS.mutations_snp_first_100
+#'  filteredUCSFirst100SNP
 #' }
-"UCS.mutations_snp_first_100"
+"filteredUCSFirst100SNP"
 
 #' UCS.mutations Dataset From the RTCGA.mutations Package
 #'
