@@ -6,9 +6,8 @@
 Cancer Mutation Analysis and Visualization Suite.
 
 <!-- badges: start -->
-<!-- https://www.codefactor.io/repository/github/anjalisilva/testingpackage/issues -->
+<!-- https://www.codefactor.io/repository/github/martien2kk/CancerMutAnalyzer/issues -->
 
-[![CodeFactor](https://www.codefactor.io/repository/github/martien2kk/CancerMutAnalyzer/badge)](https://www.codefactor.io/repository/github/martien2kk/CancerMutAnalyzer)
 [![GitHub
 issues](https://img.shields.io/github/issues/martien2kk/CancerMutAnalyzer)](https://github.com/martien2kk/CancerMutAnalyzer/issues)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
