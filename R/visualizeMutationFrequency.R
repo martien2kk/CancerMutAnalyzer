@@ -11,8 +11,13 @@
 #'
 #' @examples
 #' \dontrun{
+#'
+#' # Example 1
 #' # Visualize mutation frequency by chromosome
-#' visualizeMutationFrequencyBar(UCS.mutations_snp_first_100, group_by_column = "Chromosome")
+#' visualizeMutationFrequencyBar(UCS.mutation, group_by_column = "Chromosome")
+#'
+#' Example 2
+#' visualizeMutationFrequencyBar(filteredUCSFirst100SNP, group_by_column = "SNP_Mutation")
 #' }
 #'
 #' @import ggplot2
@@ -57,6 +62,7 @@ visualizeMutationFrequencyBar <- function(data, group_by_column) {
 #'
 #' @param data A data frame containing mutation data, which must include the two specified grouping columns.
 #' @param group_by_columns A character vector of exactly two column names to group by for mutation frequency counts.
+#'        These columns must contain only nucleotide bases (e.g., "A", "T", "C", "G").
 #'
 #' @return A ggplot2 object showing a heatmap with one column on the x-axis and the other on the y-axis.
 #'         The color intensity represents the frequency of mutations.

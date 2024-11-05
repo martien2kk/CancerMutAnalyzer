@@ -2,7 +2,6 @@
 
 export(calculateGCContent)
 export(extractMutationData)
-export(extractMutationSequences)
 export(filterMutations)
 export(visualizeMutationFrequencyBar)
 export(visualizeMutationFrequencyHeatmap)

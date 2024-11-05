@@ -22,7 +22,7 @@ It is ideal for visualizing the distribution of mutations by a single category, 
 \examples{
 \dontrun{
 # Visualize mutation frequency by chromosome
-visualizeMutationFrequencyBar(UCS.mutations_snp_first_100, group_by_column = "Chromosome")
+visualizeMutationFrequencyBar(filteredUCSFirst100SNP, group_by_column = "Chromosome")
 }
 
 }

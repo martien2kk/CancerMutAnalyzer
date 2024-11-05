@@ -7,7 +7,7 @@
 extractMutationData(
   mutation_data,
   selected_columns = c("Chromosome", "Start_position", "End_position", "Variant_Type",
-    "Reference_Allele", "Tumor_Seq_Allele1", "Tumor_Sample_Barcode")
+    "Reference_Allele", "Tumor_Seq_Allele1", "Genome_Change", "Tumor_Sample_Barcode")
 )
 }
 \arguments{
@@ -22,6 +22,9 @@ mutation_data data frame. Default columns are:
 \item \code{"Variant_Type"}: The type of mutation, such as single nucleotide polymorphisms (SNP), deletion, or insertion.
 \item \code{"Reference_Allele"}: The base(s) found on the reference allele at the position of the mutation.
 \item \code{"Tumor_Seq_Allele1"}: The base(s) found in the tumor sample at the mutation position.
+\item \code{"Genome_Change"}: A character vector specifying the genomic change at the mutation site, typically in the format
+"g.chr\if{html}{\out{<chromosome>}}:\if{html}{\out{<position>}}<reference_base>>><mutated_base>". For example, "g.chr5:61733126G>T" indicates
+a mutation on chromosome 5 at position 61733126, where the reference base "G" has been mutated to "T".
 \item \code{"Tumor_Sample_Barcode"}: A unique identifier for the tumor sample in which the mutation was detected.
 }}
 }
