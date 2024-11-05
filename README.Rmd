@@ -26,6 +26,8 @@ Cancer Mutation Analysis and Visualization Suite.
 
 The `CancerMutAnalyzer` is an R package designed to streamline and enhance the workflow for analyzing mutation data in cancer research. The package focuses on processing, visualizing, and analyzing mutation frequencies and genomic contexts, particularly targeting single nucleotide polymorphisms (SNPs) and other mutation types within cancer datasets. By providing functions for data extraction, filtering, sequence analysis, and visualizations (such as heatmaps of mutation frequencies), the package enables researchers to quickly identify mutation patterns and genomic signatures associated with different cancer types or tumor samples.
 <br>
+<br>
+<br>
 This package adds to the current bioinformatics workflow by simplifying mutation analysis tasks that typically require multiple steps across various software. By centralizing these steps in one package, researchers can conduct analyses more efficiently, reduce the risk of errors from file conversions, and gain insights through streamlined visualizations. One unique feature of this package is the ability to examine the local nucleotide context surrounding mutations, which can be used to detect mutational hotspots or enrich mutation data with GC content or sequence-based patterns. Additionally, it addresses common issues such as data formatting, base filtering, and customized visualization for specific mutation characteristics, making it a comprehensive and user-friendly tool for cancer genomics.
 <br>
 <br>
@@ -65,13 +67,19 @@ browseVignettes("CancerMutAnalyzer")
 ```
 `CancerMutAnalyzer` contains 3 functions.
 
-1.  ***InfCriteriaCalculation*** for calculating information criteria given dataset dimensions, log-likelihood and probability.
+1.  ***extractMutationData***: allows users to specify and extract specific columns from a mutation dataset in Mutation Annotation Format (MAF) or tabular format. It has default settings for commonly used columns but is customizable, so users can focus on relevant mutation details.
 
-2.  ***NormFactors*** for calculating normalization factors via via trimmed mean of M-values (TMM). 
+2.  ***filterMutations***: provides flexible filtering based on user-specified conditions for any column. This allows users to subset mutation data based on exact values or numeric ranges for certain columns, such as specific genes or chromosomal regions.
 
-3.  ***InfCriteriaPlot*** for plotting information criteria values as a scatter plot. 
+3.  ***extractMutationSequences***: retrieves nucleotide sequences surrounding mutation sites from the hg19 genome based on specified genomic coordinates in a data frame. Users can customize the length of the sequence extracted by adjusting the padding parameter, with the default setting providing a trinucleotide sequence centered around each mutation.
 
-The package also contains two RNA sequencing datasets, called GeneCounts and GeneCounts2. Refer to package vignettes for more details. An overview of the package is illustrated below. 
+4. ***visualizeMutationFrequencyBar***: generates a bar plot to display the frequency of mutations based on a specified column in a mutation dataset. This function is ideal for visualizing the distribution of mutations by a single categorical variable, such as chromosome or variant type.
+
+5. ***visualizeMutationFrequencyHeatmap***: creates a heatmap that visualizes mutation frequency based on two specified columns, such as Reference_Allele and Tumor_Seq_Allele2. It only includes rows where both columns contain nucleotide bases (A, T, C, G). This function is particularly useful for examining mutation patterns between pairs of alleles, highlighting high-frequency mutations across different nucleotide pairs.
+
+6. ***calculateGCContent***: calculates the GC content (the percentage of G and C bases) for each sequence around a mutation site.
+
+The package also contains two cancer mutation datasets, called UCS.mutations and filteredUCSFirst100SNP. Refer to package vignettes for more details. An overview of the package is illustrated below. 
 
 ![](./inst/extdata/SILVA_A_A1.png)
 
@@ -91,28 +99,13 @@ Provide full references for all sources used, including for the packages and too
 <br>
 <br>
 
-- Akaike, H. (1973). Information theory and an extension of the maximum likelihood principle. In *Second International Symposium on Information Theory*, New York, USA, 267–281. Springer Verlag. https://link.springer.com/chapter/10.1007/978-1-4612-1694-0_15.
 
-- Biernacki, C., G. Celeux, and G. Govaert (2000). Assessing a mixture model for clustering with the integrated classification likelihood. *IEEE Transactions on Pattern Analysis and Machine Intelligence* 22. https://hal.inria.fr/inria-00073163/document
+- R Core Team (2024). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical
+  Computing, Vienna, Austria. <https://www.R-project.org/>.
 
-- BioRender. (2020). Image created by Silva, A. Retrieved October 30, 2020, from https://app.biorender.com/
-
-- Chang, W., J. Cheng, J. Allaire, C. Sievert, B. Schloerke, Y. Xie, J. Allen, J. McPherson, A. Dipert, B. Borges (2023). _shiny: Web Application Framework for R_. R package version 1.8.0, <https://CRAN.R-project.org/package=shiny>
-
-- McCarthy, D. J., Y. Chen and  G. K. Smyth (2012). Differential expression analysis of multifactor RNA-Seq experiments with respect to biological variation. *Nucleic Acids Research* 40. 4288-4297.
-https://pubmed.ncbi.nlm.nih.gov/22287627/
-
-- R Core Team (2023). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. https://www.R-project.org/
-
-- Robinson, M. D.,  D.J. McCarthy and G. K. Smyth (2010). edgeR: a
-  Bioconductor package for differential expression analysis
-  of digital gene expression data. *Bioinformatics* 26,
-  139-140. https://pubmed.ncbi.nlm.nih.gov/19910308/ 
-
-- Schwarz, G. (1978). Estimating the dimension of a model. *The Annals of Statistics* 6, 461–464. https://projecteuclid.org/euclid.aos/1176344136.
-
-- Scrucca, L., M. Fop, T. B. Murphy and A. E. Raftery (2016) mclust 5: clustering, classification and density estimation using Gaussian finite mixture models. *The R Journal* 8(1), 289-317. 
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/ 
+-  Wickham H, François R, Henry L, Müller K, Vaughan D (2023). _dplyr: A Grammar of Data Manipulation_. R
+  package version 1.1.4, <https://CRAN.R-project.org/package=dplyr>.
+  
 
 - Wickham, H. ggplot2: Elegant Graphics for Data Analysis.
   Springer-Verlag New York, 2016.

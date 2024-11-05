@@ -54,8 +54,8 @@ extractMutationData <- function(mutation_data, selected_columns = c("Chromosome"
     stop("One or more specified columns do not exist in the data frame.")
   }
 
-  # Select the specified columns from the data frame
-  selected_data <- mutation_data %>% select(all_of(selected_columns))
+  # Select the specified columns from the data frame using dplyr::select
+  selected_data <- dplyr::select(mutation_data, dplyr::all_of(selected_columns))
 
   # Return the selected data
   return(selected_data)

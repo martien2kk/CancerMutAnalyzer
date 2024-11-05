@@ -24,7 +24,7 @@ It is ideal for visualizing the distribution of mutations by a single category, 
 
 # Example 1
 # Visualize mutation frequency by chromosome
-visualizeMutationFrequencyBar(UCS.mutation, group_by_column = "Chromosome")
+visualizeMutationFrequencyBar(UCS.mutations, group_by_column = "Chromosome")
 
 Example 2
 visualizeMutationFrequencyBar(filteredUCSFirst100SNP, group_by_column = "SNP_Mutation")

@@ -2,10 +2,13 @@
 
 export(calculateGCContent)
 export(extractMutationData)
+export(extractMutationSequences)
 export(filterMutations)
 export(visualizeMutationFrequencyBar)
 export(visualizeMutationFrequencyHeatmap)
 import(BSgenome.Hsapiens.UCSC.hg19)
+import(Biostrings)
 import(GenomicRanges)
+import(S4Vectors)
 import(dplyr)
 import(ggplot2)

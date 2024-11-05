@@ -13,11 +13,13 @@ calculateGCContent(sequences)
 A numeric vector with GC content percentages for each sequence in the input.
 }
 \description{
-This function calculates the GC content (the percentage of G and C bases) for each sequence around a mutation site.
+This function calculates the GC content (the percentage of G and C bases) for each sequence around a mutation site
+with help of the Biostrings package.
 }
 \details{
 This function assumes that the input sequences are in a character vector format, with each element representing a DNA sequence.
 The GC content is calculated as the percentage of 'G' and 'C' bases in each sequence, relative to the total length of the sequence.
+The function relies on the Biostrings package for efficient sequence handling and GC content calculation.
 }
 \examples{
 \dontrun{
@@ -32,9 +34,8 @@ print(gc_content)
 library(BSgenome.Hsapiens.UCSC.hg19)
 library(GenomicRanges)
 
-
 # Extract sequences
-extracted_data <- extractMutationSequences(UCS.mutations_snp_first_100, 15)
+extracted_data <- extractMutationSequences(filteredUCSFirst100SNP, 15)
 extracted_sequences <- extracted_data$sequences
 
 # Calculate GC content for extracted sequences

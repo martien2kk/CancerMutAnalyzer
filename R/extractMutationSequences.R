@@ -41,52 +41,51 @@
 #'
 #' # Example 2
 #' # Extract sequences with larger padding and return as DNAStringSet
-#' sequences_dnastringset <- extractMutationSequences(sampleDataset, padding = 10, return.DNAStringSet = TRUE)
+#' sequences_dnastringset <- extractMutationSequences(filteredUCSFirst100SNP, padding = 10, return.DNAStringSet = TRUE)
 #' print(sequences_dnastringset)
 #'
 #' # Example 3
-#' extractMutationSequences(UCS.mutations_snp_first_100)
+#' extractMutationSequences(filteredUCSFirst100SNP)
 #' }
 #'
 #' @import GenomicRanges
 #' @import BSgenome.Hsapiens.UCSC.hg19
+#' @import S4Vectors
 #'
-#'@export
-filterMutations <- function(data, conditions) {
-  # Check if conditions are provided
-  if (is.null(conditions) || length(conditions) == 0) {
-    stop("Please provide a list of conditions to filter by.")
+#' @export
+extractMutationSequences <- function(data, padding = 1, return.DNAStringSet = FALSE) {
+  # Validate input data
+  if (!("Chromosome" %in% names(data) && "Start_position" %in% names(data))) {
+    stop("Data must include 'Chromosome' and 'Start_position' columns.")
   }
 
-  # Apply each condition sequentially
-  for (col in names(conditions)) {
-    if (!col %in% names(data)) {
-      stop(paste("Column", col, "not found in the data."))
-    }
+  # Ensure Start_position is numeric
+  data$Start_position <- as.numeric(data$Start_position)
 
-    # Get condition for the column
-    condition <- conditions[[col]]
+  # Ensure chromosome names are in the correct UCSC format
+  data$Chromosome <- ifelse(
+    grepl("^chr", data$Chromosome),
+    data$Chromosome,
+    paste0("chr", data$Chromosome)
+  )
 
-    # Ensure the column is numeric if we are applying a range filter
-    if (is.vector(condition) && length(condition) == 2) {
-      data[[col]] <- as.numeric(data[[col]])
-    }
+  # Create a GRanges object from the input mutation data
+  mutations_gr <- GenomicRanges::GRanges(
+    seqnames = Rle(data$Chromosome),
+    ranges = IRanges::IRanges(start = data$Start_position - padding, end = data$Start_position + padding)
+  )
 
-    # Apply the condition based on its type
-    if (is.vector(condition) && length(condition) == 1) {
-      # Exact match
-      data <- data[data[[col]] == condition, ]
-    } else if (is.vector(condition) && length(condition) == 2) {
-      # Range filtering for numeric columns
-      if (is.numeric(data[[col]])) {
-        data <- data[data[[col]] >= condition[1] & data[[col]] <= condition[2], ]
-      } else {
-        stop(paste("Range filtering is only applicable to numeric columns. Column", col, "is not numeric."))
-      }
-    } else {
-      stop("Invalid condition format. Use a single value or a two-element numeric vector for range filtering.")
-    }
+  # Get hg19 reference sequence for the GRanges object
+  mutation_sequences <- BSgenome::getSeq(BSgenome.Hsapiens.UCSC.hg19::Hsapiens, mutations_gr)
+
+  if (return.DNAStringSet) {
+    # Return as DNAStringSet if requested
+    return(mutation_sequences)
+  } else {
+    # Convert DNAStringSet to a character vector
+    mutation_sequences <- as.character(mutation_sequences)
+    # Add this vector as a new column to the input data
+    data$sequences <- mutation_sequences
+    return(data)
   }
-
-  return(data)
 }

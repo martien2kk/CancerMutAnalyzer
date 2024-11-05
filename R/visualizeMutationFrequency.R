@@ -14,7 +14,7 @@
 #'
 #' # Example 1
 #' # Visualize mutation frequency by chromosome
-#' visualizeMutationFrequencyBar(UCS.mutation, group_by_column = "Chromosome")
+#' visualizeMutationFrequencyBar(UCS.mutations, group_by_column = "Chromosome")
 #'
 #' Example 2
 #' visualizeMutationFrequencyBar(filteredUCSFirst100SNP, group_by_column = "SNP_Mutation")
@@ -31,23 +31,28 @@ visualizeMutationFrequencyBar <- function(data, group_by_column) {
 
   # Count the frequency of mutations by the specified column
   mutation_counts <- data %>%
-    count(!!sym(group_by_column), name = "Frequency") %>%
-    arrange(!!sym(group_by_column))  # Sort by the grouping column
+    dplyr::count(!!rlang::sym(group_by_column), name = "Frequency") %>%
+    dplyr::arrange(!!rlang::sym(group_by_column))  # Sort by the grouping column
+
+  # Note: line 34 - 35 are suggested by chatGPT: "!!rlang::sym(group_by_column): This evaluates group_by_column
+  # correctly within dplyr::count() by using !! (pronounced "bang-bang") to unquote it. This allows it to be
+  # interpreted as a column name rather than as a symbol."
+
 
   # Convert x-axis to factor and order levels
   mutation_counts[[group_by_column]] <- factor(mutation_counts[[group_by_column]],
                                                levels = sort(unique(mutation_counts[[group_by_column]])))
 
-  # Create a bar plot
-  plot <- ggplot(mutation_counts, aes_string(x = group_by_column, y = "Frequency")) +
-    geom_bar(stat = "identity", fill = "steelblue") +
-    labs(
+  # Create a bar plot using aes() with tidy evaluation
+  plot <- ggplot2::ggplot(mutation_counts, ggplot2::aes(x = !!rlang::sym(group_by_column), y = Frequency)) +
+    ggplot2::geom_bar(stat = "identity", fill = "steelblue") +
+    ggplot2::labs(
       title = paste("Mutation Frequency by", group_by_column),
       x = group_by_column,
       y = "Mutation Frequency"
     ) +
-    theme_minimal() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    ggplot2::theme_minimal() +
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
 
   # Return the plot
   return(plot)
@@ -86,16 +91,19 @@ visualizeMutationFrequencyHeatmap <- function(data, group_by_columns) {
   if (!all(group_by_columns %in% names(data))) {
     stop("One or more specified columns do not exist in the data.")
   }
+  # Note: the following are suggested by chatGPT: "!!rlang::sym(group_by_column): This evaluates group_by_column
+  # correctly within dplyr::count() by using !! (pronounced "bang-bang") to unquote it. This allows it to be
+  # interpreted as a column name rather than as a symbol."
 
   # Filter rows to include only those with single-letter bases in both columns
   data_filtered <- data %>%
-    filter(nchar(!!sym(group_by_columns[1])) == 1,
-           nchar(!!sym(group_by_columns[2])) == 1)
+    dplyr::filter(nchar(!!rlang::sym(group_by_columns[1])) == 1,
+                  nchar(!!rlang::sym(group_by_columns[2])) == 1)
 
   # Count the frequency of mutations by the specified columns
   mutation_counts <- data_filtered %>%
-    count(!!sym(group_by_columns[1]), !!sym(group_by_columns[2]), name = "Frequency") %>%
-    arrange(!!sym(group_by_columns[1]), !!sym(group_by_columns[2]))  # Sort by both grouping columns
+    dplyr::count(!!rlang::sym(group_by_columns[1]), !!rlang::sym(group_by_columns[2]), name = "Frequency") %>%
+    dplyr::arrange(!!rlang::sym(group_by_columns[1]), !!rlang::sym(group_by_columns[2]))
 
   # Convert x-axis and y-axis columns to factors with sorted levels
   mutation_counts[[group_by_columns[1]]] <- factor(mutation_counts[[group_by_columns[1]]],
@@ -104,17 +112,18 @@ visualizeMutationFrequencyHeatmap <- function(data, group_by_columns) {
                                                    levels = sort(unique(mutation_counts[[group_by_columns[2]]])))
 
   # Create a heatmap
-  plot <- ggplot(mutation_counts, aes_string(x = group_by_columns[1], y = group_by_columns[2], fill = "Frequency")) +
-    geom_tile(color = "white") +
-    scale_fill_gradient(low = "lightblue", high = "steelblue") +
-    labs(
+  plot <- ggplot2::ggplot(mutation_counts, ggplot2::aes(x = !!rlang::sym(group_by_columns[1]),
+                                                        y = !!rlang::sym(group_by_columns[2]), fill = Frequency)) +
+    ggplot2::geom_tile(color = "white") +
+    ggplot2::scale_fill_gradient(low = "lightblue", high = "steelblue") +
+    ggplot2::labs(
       title = paste("Mutation Frequency by", group_by_columns[1], "and", group_by_columns[2]),
       x = group_by_columns[1],
       y = group_by_columns[2],
       fill = "Frequency"
     ) +
-    theme_minimal() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    ggplot2::theme_minimal() +
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
 
   # Return the plot
   return(plot)
