@@ -50,6 +50,7 @@
 #'
 #' @import GenomicRanges
 #' @import BSgenome.Hsapiens.UCSC.hg19
+#'
 #' @export
 extractMutationSequences <- function(data, padding = 1, return.DNAStringSet = FALSE) {
   # Validate input data
