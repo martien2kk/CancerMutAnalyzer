@@ -9,7 +9,8 @@ visualizeMutationFrequencyHeatmap(data, group_by_columns)
 \arguments{
 \item{data}{A data frame containing mutation data, which must include the two specified grouping columns.}
 
-\item{group_by_columns}{A character vector of exactly two column names to group by for mutation frequency counts.}
+\item{group_by_columns}{A character vector of exactly two column names to group by for mutation frequency counts.
+These columns must contain only nucleotide bases (e.g., "A", "T", "C", "G").}
 }
 \value{
 A ggplot2 object showing a heatmap with one column on the x-axis and the other on the y-axis.

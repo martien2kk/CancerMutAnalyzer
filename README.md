@@ -8,43 +8,45 @@ Cancer Mutation Analysis and Visualization Suite.
 <!-- badges: start -->
 <!-- https://www.codefactor.io/repository/github/anjalisilva/testingpackage/issues -->
 
-[![CodeFactor](https://www.codefactor.io/repository/github/anjalisilva/testingpackage/badge)](https://www.codefactor.io/repository/github/anjalisilva/testingpackage)
+[![CodeFactor](https://www.codefactor.io/repository/github/martien2kk/CancerMutAnalyzer/badge)](https://www.codefactor.io/repository/github/martien2kk/CancerMutAnalyzer)
 [![GitHub
-issues](https://img.shields.io/github/issues/anjalisilva/TestingPackage)](https://github.com/anjalisilva/TestingPackage/issues)
+issues](https://img.shields.io/github/issues/martien2kk/CancerMutAnalyzer)](https://github.com/martien2kk/CancerMutAnalyzer/issues)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 ![GitHub language
-count](https://img.shields.io/github/languages/count/anjalisilva/TestingPackage)
+count](https://img.shields.io/github/languages/count/martien2kk/CancerMutAnalyzer)
 ![GitHub commit activity
-(branch)](https://img.shields.io/github/commit-activity/y/anjalisilva/TestingPackage/master)
+(branch)](https://img.shields.io/github/commit-activity/y/martien2kk/CancerMutAnalyzer/master)
 
 <!-- https://shields.io/category/license -->
 <!-- badges: end -->
 
 ## Description
 
-A paragraph that describes the purpose of your R package and biological
-data being analyzed. Explain how your package add to or improve a
-current work flow in bioinformatics or computational biology (i.e., how
-is it unique?, what issue does it address?). Finally, include the R
-version (not RStudio version) and platform (Mac, Windows, Linux (Debian,
-Fedora/Redhat, Ubuntu)), used to develop the package. You may obtain
-this information by running `utils::sessionInfo()`. There should be no
-`Shiny` implementation at this point. E.g., <br> <br> <br>
-`TestingPackage` is an R package to demonstrate components of a simple R
-package with RNA sequencing data. The R package includes the main
-components: DESCRIPTION, NAMESPACE, man subdirectory and R subdirectory.
-Additionally, LICENSE, README and subdirectories vignettes, tests, data
-and inst are also explored. The package is targeted for BCB410H (Applied
-Bioinformatics) students, who are to define a useful tool for the
-analysis of biological data in the format of a public R package housed
-on GitHub. The scope of the R package is to add to or improve a current
-work flow in bioinformatics or computational biology. The tool should
-contain functions to perform analysis of biological data and to produce
-a compelling graphical output, ideally to support for exploratory
-analysis. The `TestingPackage` package was developed using
-`R version 4.2.1 (2022-06-23)`,
-`Platform: x86_64-apple-darwin17.0 (64-bit)` and
-`Running under: macOS Ventura 13.2`.
+The `CancerMutAnalyzer` is an R package designed to streamline and
+enhance the workflow for analyzing mutation data in cancer research. The
+package focuses on processing, visualizing, and analyzing mutation
+frequencies and genomic contexts, particularly targeting single
+nucleotide polymorphisms (SNPs) and other mutation types within cancer
+datasets. By providing functions for data extraction, filtering,
+sequence analysis, and visualizations (such as heatmaps of mutation
+frequencies), the package enables researchers to quickly identify
+mutation patterns and genomic signatures associated with different
+cancer types or tumor samples. <br> This package adds to the current
+bioinformatics workflow by simplifying mutation analysis tasks that
+typically require multiple steps across various software. By
+centralizing these steps in one package, researchers can conduct
+analyses more efficiently, reduce the risk of errors from file
+conversions, and gain insights through streamlined visualizations. One
+unique feature of this package is the ability to examine the local
+nucleotide context surrounding mutations, which can be used to detect
+mutational hotspots or enrich mutation data with GC content or
+sequence-based patterns. Additionally, it addresses common issues such
+as data formatting, base filtering, and customized visualization for
+specific mutation characteristics, making it a comprehensive and
+user-friendly tool for cancer genomics. <br> <br> <br> The
+`CancerMutAnalyzer` package was developed using
+`R version 4.4.1 (2024-06-14 ucrt)`, `Platform: x86_64-w64-mingw32/x64`
+and `Running under: Windows 11 x64 (build 22631)`.
 
 ## Installation
 
@@ -74,12 +76,12 @@ deposited in the correct location, as discussed in class. Point the user
 to vignettes for a tutorial of your package. E.g., <br> <br> <br>
 
 ``` r
-ls("package:TestingPackage")
-data(package = "TestingPackage") 
-browseVignettes("TestingPackage")
+ls("package:CancerMutAnalyzer")
+data(package = "CancerMutAnalyzer") 
+browseVignettes("CancerMutAnalyzer")
 ```
 
-`TestingPackage` contains 3 functions.
+`CancerMutAnalyzer` contains 3 functions.
 
 1.  ***InfCriteriaCalculation*** for calculating information criteria
     given dataset dimensions, log-likelihood and probability.
@@ -106,7 +108,7 @@ and how the results from AI tools were incorporated. Remember your
 individual contributions to the package are important. E.g., <br> <br>
 <br>
 
-The author of the package is Anjali Silva. The author wrote the
+The author of the package is Keren Zhang The author wrote the
 *InfCriteriaCalculation* function, which calculates the information
 criteria values given data specifications. Here, the Bayesian
 information criterion (BIC), Akaike information criterion (AIC) and
@@ -181,11 +183,11 @@ and tools mentioned under ‘Contributions’, in one format. E.g., <br>
 ## Acknowledgements
 
 Provide the following text, customized to your R package. E.g., <br>
-<br> <br> This package was developed as part of an assessment for
-2019-2023 BCB410H: Applied Bioinformatics course at the University of
-Toronto, Toronto, CANADA. `TestingPackage` welcomes issues, enhancement
+<br> <br> This package was developed as part of an assessment for 2024
+BCB410H: Applied Bioinformatics course at the University of Toronto,
+Toronto, CANADA. `CancerMutAnalyzer` welcomes issues, enhancement
 requests, and other contributions. To submit an issue, use the [GitHub
-issues](https://github.com/anjalisilva/TestingPackage/issues). Many
+issues](https://github.com/martien2kk/CancerMutAnalyzer/issues). Many
 thanks to those who provided feedback to improve this package.
 
 ## Package Structure
