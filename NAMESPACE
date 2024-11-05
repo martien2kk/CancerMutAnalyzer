@@ -2,6 +2,9 @@
 
 export(extractMutationData)
 export(extractMutationSequences)
+export(visualizeMutationFrequencyBar)
+export(visualizeMutationFrequencyHeatmap)
 import(BSgenome.Hsapiens.UCSC.hg19)
 import(GenomicRanges)
 import(dplyr)
+import(ggplot2)

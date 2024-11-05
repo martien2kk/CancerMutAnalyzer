@@ -2,7 +2,7 @@ Package: CancerMutAnalyzer
 Type: Package
 Title: Cancer Mutation Analysis and Visualization Suite
 Version: 0.1.0
-Author@R: person("Keren Zhang", 
+Author: person("Keren Zhang", 
                 email = "keren.zhang@utoronto.ca", 
                 role = c("aut", "cre"))
 Maintainer: Keren Zhang <kerrenn.zhang@utoronto.ca>
@@ -14,7 +14,8 @@ LazyData: true
 Imports: 
     BSgenome.Hsapiens.UCSC.hg19,
     dplyr,
-    GenomicRanges
+    GenomicRanges,
+    ggplot2
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 Depends: 
