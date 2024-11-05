@@ -4,27 +4,50 @@
 \alias{extractMutationData}
 \title{Extract Specific Columns from Mutation Data}
 \usage{
-extractMutationData(mutation_data, selected_columns)
+extractMutationData(
+  mutation_data,
+  selected_columns = c("Chromosome", "Start_position", "End_position", "Variant_Type",
+    "Reference_Allele", "Tumor_Seq_Allele1", "Tumor_Sample_Barcode")
+)
 }
 \arguments{
 \item{mutation_data}{A data frame containing mutation data.}
 
 \item{selected_columns}{A character vector specifying the columns to be extracted from the
-mutation_data data frame.}
+mutation_data data frame. Default columns are:
+\itemize{
+\item \code{"Chromosome"}: The chromosome number on which the mutation occurs.
+\item \code{"Start_position"}: The starting position of the mutation on the chromosome.
+\item \code{"End_position"}: The ending position of the mutation on the chromosome.
+\item \code{"Variant_Type"}: The type of mutation, such as single nucleotide polymorphisms (SNP), deletion, or insertion.
+\item \code{"Reference_Allele"}: The base(s) found on the reference allele at the position of the mutation.
+\item \code{"Tumor_Seq_Allele1"}: The base(s) found in the tumor sample at the mutation position.
+\item \code{"Tumor_Sample_Barcode"}: A unique identifier for the tumor sample in which the mutation was detected.
+}}
 }
 \value{
 Returns a data frame containing only the columns specified by the user.
 }
 \description{
-This function extracts specified columns from a mutation dataset. It checks whether the input
-is a data frame and whether the specified columns exist in the data frame. It is assumed that
-the dataset has been pre-loaded and is provided as an argument to the function.
+This function extracts specified columns from a mutation dataset. It has default settings
+for commonly used columns but allows for user customization. It checks whether the input
+is a data frame and whether the specified columns exist in the data frame.
 }
 \examples{
+# Example 1
+
 \dontrun{
 library(RTCGA.mutations)
 data(UCS.mutations)
 extractMutationData(UCS.mutations, c("Chromosome", "Start_position", "End_position"))
+}
+
+# Example 2
+
+\dontrun{
+library(RTCGA.mutations)
+data(UCS.mutations)
+extractMutationData(UCS.mutations)
 }
 
 }

@@ -12,7 +12,9 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    dplyr
+    BSgenome.Hsapiens.UCSC.hg19,
+    dplyr,
+    GenomicRanges
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 Depends: 

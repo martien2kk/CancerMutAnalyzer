@@ -54,8 +54,8 @@ E.g., <br> <br> <br> To install the latest version of the package:
 ``` r
 install.packages("devtools")
 library("devtools")
-devtools::install_github("anjalisilva/TestingPackage", build_vignettes = TRUE)
-library("TestingPackage")
+devtools::install_github("martien2kk/CancerMutAnalyzer", build_vignettes = TRUE)
+library("CancerMutAnalyzer")
 ```
 
 To run the Shiny app:
