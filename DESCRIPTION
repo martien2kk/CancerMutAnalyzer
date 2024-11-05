@@ -2,14 +2,16 @@ Package: CancerMutAnalyzer
 Type: Package
 Title: Cancer Mutation Analysis and Visualization Suite
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
+Author@R: person("Keren Zhang", 
+                email = "keren.zhang@utoronto.ca", 
+                role = c("aut", "cre"))
+Maintainer: Keren Zhang <kerrenn.zhang@utoronto.ca>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    mclust
+    dplyr
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
