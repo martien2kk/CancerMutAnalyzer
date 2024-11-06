@@ -1,4 +1,3 @@
-context("Test calculateGCContent")
 library(CancerMutAnalyzer)
 
 test_that("calculateGCContent calculates correct GC content for given sequences", {

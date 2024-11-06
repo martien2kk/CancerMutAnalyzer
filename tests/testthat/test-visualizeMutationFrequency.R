@@ -1,4 +1,3 @@
-context("Test visualizeMutationFrequency")
 library(CancerMutAnalyzer)
 
 test_that("visualizeMutationFrequencyBar creates a bar plot", {

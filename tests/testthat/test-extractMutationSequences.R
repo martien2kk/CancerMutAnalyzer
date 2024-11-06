@@ -1,4 +1,3 @@
-context("Test extractMutationSequence")
 library(CancerMutAnalyzer)
 
 test_that("sequence extraction with padding", {

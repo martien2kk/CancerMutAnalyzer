@@ -1,4 +1,3 @@
-context("Test processMutationData")
 library(CancerMutAnalyzer)
 
 test_that("Extract specific columns from mutation data", {
