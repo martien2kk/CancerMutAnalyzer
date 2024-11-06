@@ -26,6 +26,9 @@ test_that("calculateGCContent handles edge cases", {
   sequences_no_gc <- c("AAAA", "TTTT", "AAAAA")
   result_no_gc <- calculateGCContent(sequences_no_gc)
 
+  sequences_all_gc <- c("GGGG", "CCCC", "GGGGG")
+  result_all_gc <- calculateGCContent(sequences_all_gc)
+
   expect_equal(result_no_gc$gc_content, c(0, 0, 0))
   expect_equal(result_all_gc$gc_content, c(100, 100, 100))
 
