@@ -1,6 +1,6 @@
 Package: CancerMutAnalyzer
 Type: Package
-Title: Cancer Mutation Analysis and Visualization Suite
+Title: Cancer Mutation Analysis and Visualization Tool
 Version: 0.1.0
 Authors@R: person("Keren Zhang", 
                 email = "keren.zhang@utoronto.ca", 

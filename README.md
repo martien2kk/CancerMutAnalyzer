@@ -143,6 +143,11 @@ for brainstorming, debugging, and structuring the Roxygen documentation.
 
 ## References
 
+- Silva A. (2019). GitHub - anjalisilva/TestingPackage: R Package
+  Illustrating Components of an R package for BCB410H - Applied
+  Bioinformatics (2019-2023), University of Toronto, Canada. GitHub.
+  <https://github.com/anjalisilva/TestingPackage>
+
 - Kosinski M (2024). *RTCGA.mutations: Mutations datasets from The
   Cancer Genome Atlas Project*. <doi:10.18129/B9.bioc.RTCGA.mutations>
   <https://doi.org/10.18129/B9.bioc.RTCGA.mutations>, R package version
