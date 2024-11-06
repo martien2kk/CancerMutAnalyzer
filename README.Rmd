@@ -37,10 +37,6 @@ The `CancerMutAnalyzer` package was developed using `R version 4.4.1 (2024-06-14
 
 ## Installation
 
-Provide the following text and commands, customized to your R package. E.g., 
-<br>
-<br>
-<br>
 To install the latest version of the package:
 ``` r
 install.packages("devtools")
@@ -77,17 +73,24 @@ browseVignettes("CancerMutAnalyzer")
 
 The package also contains two cancer mutation datasets, called UCS.mutations and filteredUCSFirst100SNP. Refer to package vignettes for more details. An overview of the package is illustrated below. 
 
-![](./inst/extdata/SILVA_A_A1.png)
+![](./inst/extdata/Workflow.png)
 
 
 ## Contributions
 
-Provide a paragraph clearly indicating the name of the author of the package and contributions from the author. Outline contributions from other packages/sources for each function. Outline contributions from generative AI tool(s) for each function. Include how the tools were used and how the results from AI tools were incorporated. Remember your individual contributions to the package are important. E.g., 
+The author of the package is Keren Zhang. The author wrote the extractMutationData function, which extracts specified columns from a mutation dataset, returning key mutation details such as chromosome, start and end positions, variant type, and allele information. This function relies on dplyr functions for data manipulation and selection.
 <br>
 <br>
+The extractMutationSequences function was also developed by the author and extracts nucleotide sequences surrounding mutation sites based on genomic coordinates. This function utilizes the BSgenome.Hsapiens.UCSC.hg19 and GenomicRanges packages to access the hg19 genome and create genomic ranges for accurate sequence extraction.
 <br>
-
-The author of the package is Keren Zhang The author wrote the *InfCriteriaCalculation* function, which calculates the information criteria values given data specifications. Here, the Bayesian information criterion (BIC), Akaike information criterion (AIC) and Integrated Complete Likelihood (ICL) are calculated. The *InfCriteriaCalculation* function makes use of map function from `mclust` R package to generate information criteria values. The `stats` R package is used for generating multinomially distributed random number vectors. Part of the code for *InfCriteriaCalculation* function has been taken from `<NamePackage>` R package. (Section of the borrowed code should be clearly indicated and referenced in the InfCriteriaCalculation R script). The *InfCriteriaPlot* is written by the author and generates a plot of information criteria values. The *InfCriteriaPlot* function makes use of the `graphics` R package. *NormFactors* is a function that calculates normalization factors via Trimmed Mean of M-values (TMM). *NormFactors* function uses Trimmed Mean of M-values (TMM) as implemented in `edgeR` R package. No generative AI tools were used in the development of this package. 
+<br>
+Additionally, the calculateGCContent function, written by the author, calculates the GC content of extracted sequences to assess the percentage of G and C bases. This function uses the Biostrings package for efficient sequence handling and base frequency calculation, allowing for streamlined GC content analysis.
+<br>
+<br>
+The visualizeMutationFrequencyBar and visualizeMutationFrequencyHeatmap functions generate visualizations to explore mutation data. The bar plot function visualizes mutation frequency by a single column, while the heatmap function visualizes mutation frequency by two columns (e.g., Reference_Allele and Tumor_Seq_Allele2). Both functions use ggplot2 for visualization and rely on dplyr for data preparation.
+<br>
+<br>
+Generative AI tools, OpenAI's ChatGPT, were used to provide suggestions for brainstorming, debugging, and structuring the Roxygen documentation. 
 
 ## References
 - Kosinski M (2024). _RTCGA.mutations: Mutations datasets from The Cancer Genome Atlas Project_.
@@ -122,50 +125,79 @@ The author of the package is Keren Zhang The author wrote the *InfCriteriaCalcul
 
 ## Acknowledgements
 
-Provide the following text, customized to your R package. E.g.,
-<br>
-<br>
-<br>
 This package was developed as part of an assessment for 2024 BCB410H: Applied Bioinformatics course at the University of Toronto, Toronto, CANADA. `CancerMutAnalyzer` welcomes issues, enhancement requests, and other contributions. To submit an issue, use the [GitHub issues](https://github.com/martien2kk/CancerMutAnalyzer/issues). Many thanks to those who provided feedback to improve this package.
 
-## Package Structure
+## SessionInfo
 
-The package structure is illustrated below:
+The sessionInfo used to develop this package is listed below:
 <br>
 <br>
-The package tree structure is provided below.
 
 ``` r
-- TestingPackage
-  |- TestingPackage.Rproj
-  |- DESCRIPTION
-  |- NAMESPACE
-  |- LICENSE
-  |- README
-  |- data
-    |- GeneCounts.rda
-    |- GeneCounts2.rda
-  |- inst
-    CITATION
-    |- extdata
-      |- SILVA_A_A1.png
-      |- GeneCountsData2.csv
-    |- shiny-scripts 
-        |- app.R
-  |- man
-    |- GeneCounts.Rd
-    |- InfCriteriaCalculation.Rd
-    |- NormFactors.Rd
-    |- InfCriteriaPlot.Rd
-  |- R
-    |- data.R
-    |- InfCriteriaCalculation.R
-    |- InfCriteriaPlot.R
-    |- NormFactorCalculation.R
-  |- vignettes
-    |- TestingPackageVignette.Rmd
-  |- tests
-    |- testthat.R
-    |- testthat
-      |- test-InfCriteriaCalculation.R
+R version 4.4.1 (2024-06-14 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 22631)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=English_Canada.utf8  LC_CTYPE=English_Canada.utf8    LC_MONETARY=English_Canada.utf8
+[4] LC_NUMERIC=C                    LC_TIME=English_Canada.utf8    
+
+time zone: America/Toronto
+tzcode source: internal
+
+attached base packages:
+[1] stats4    stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] CancerMutAnalyzer_0.1.0       knitr_1.48                    Biostrings_2.72.1            
+ [4] XVector_0.44.0                testthat_3.2.1.1              ggplot2_3.5.1                
+ [7] GenomicRanges_1.56.2          GenomeInfoDb_1.40.1           IRanges_2.38.1               
+[10] S4Vectors_0.42.1              BiocGenerics_0.50.0           dplyr_1.1.4                  
+[13] RTCGA.mutations_20151101.34.0 RTCGA_1.34.0                  roxygen2_7.3.2               
+
+loaded via a namespace (and not attached):
+  [1] rstudioapi_0.17.1                 jsonlite_1.8.9                    magrittr_2.0.3                   
+  [4] farver_2.1.2                      rmarkdown_2.29                    fs_1.6.5                         
+  [7] BiocIO_1.14.0                     zlibbioc_1.50.0                   vctrs_0.6.5                      
+ [10] memoise_2.0.1                     Rsamtools_2.20.0                  RCurl_1.98-1.16                  
+ [13] rstatix_0.7.2                     htmltools_0.5.8.1                 S4Arrays_1.4.1                   
+ [16] usethis_3.0.0                     curl_5.2.3                        broom_1.0.7                      
+ [19] SparseArray_1.4.8                 Formula_1.2-5                     htmlwidgets_1.6.4                
+ [22] desc_1.4.3                        zoo_1.8-12                        cachem_1.1.0                     
+ [25] commonmark_1.9.2                  GenomicAlignments_1.40.0          whisker_0.4.1                    
+ [28] mime_0.12                         lifecycle_1.0.4                   pkgconfig_2.0.3                  
+ [31] Matrix_1.7-0                      R6_2.5.1                          fastmap_1.2.0                    
+ [34] GenomeInfoDbData_1.2.12           MatrixGenerics_1.16.0             shiny_1.9.1                      
+ [37] digest_0.6.37                     colorspace_2.1-1                  ps_1.8.1                         
+ [40] rprojroot_2.0.4                   pkgload_1.4.0                     ggpubr_0.6.0                     
+ [43] labeling_0.4.3                    fansi_1.0.6                       km.ci_0.5-6                      
+ [46] httr_1.4.7                        abind_1.4-8                       compiler_4.4.1                   
+ [49] remotes_2.5.0                     withr_3.0.2                       backports_1.5.0                  
+ [52] BiocParallel_1.38.0               carData_3.0-5                     viridis_0.6.5                    
+ [55] pkgbuild_1.4.5                    ggsignif_0.6.4                    sessioninfo_1.2.2                
+ [58] DelayedArray_0.30.1               rjson_0.2.23                      BSgenome.Hsapiens.UCSC.hg19_1.4.3
+ [61] tools_4.4.1                       httpuv_1.6.15                     glue_1.8.0                       
+ [64] callr_3.7.6                       restfulr_0.0.15                   promises_1.3.0                   
+ [67] grid_4.4.1                        generics_0.1.3                    gtable_0.3.6                     
+ [70] BSgenome_1.72.0                   KMsurv_0.1-5                      tidyr_1.3.1                      
+ [73] survminer_0.5.0                   data.table_1.16.2                 xml2_1.3.6                       
+ [76] car_3.1-3                         utf8_1.2.4                        pillar_1.9.0                     
+ [79] stringr_1.5.1                     later_1.3.2                       splines_4.4.1                    
+ [82] lattice_0.22-6                    survival_3.6-4                    rtracklayer_1.64.0               
+ [85] tidyselect_1.2.1                  miniUI_0.1.1.1                    gridExtra_2.3                    
+ [88] SummarizedExperiment_1.34.0       xfun_0.49                         Biobase_2.64.0                   
+ [91] devtools_2.4.5                    brio_1.1.5                        matrixStats_1.4.1                
+ [94] stringi_1.8.4                     UCSC.utils_1.0.0                  yaml_2.3.10                      
+ [97] evaluate_1.0.1                    codetools_0.2-20                  tibble_3.2.1                     
+[100] BiocManager_1.30.25               cli_3.6.3                         xtable_1.8-4                     
+[103] processx_3.8.4                    munsell_0.5.1                     survMisc_0.5.6                   
+[106] Rcpp_1.0.13-1                     XML_3.99-0.17                     parallel_4.4.1                   
+[109] ellipsis_0.3.2                    assertthat_0.2.1                  profvis_0.4.0                    
+[112] urlchecker_1.0.1                  bitops_1.0-9                      viridisLite_0.4.2                
+[115] ggthemes_5.1.0                    scales_1.3.0                      purrr_1.0.2                      
+[118] crayon_1.5.3                      rlang_1.1.4                       rvest_1.0.4                      
+[121] waldo_0.6.0   
 ```

@@ -82,10 +82,22 @@ The package also contains two cancer mutation datasets, called UCS.mutations and
 In this introduction, we will analyze cancer mutation data from The Cancer Genome Atlas Project, using the RTCGA.mutations Bioconductor package. Specifically, we will look at data for Uterine Carcinosarcoma, which is a rare and aggressive type of cancer that arises from the uterus. Another dataset filteredUCSFirst100SNP, which contains the first 100 Single Nucleotide Polymorphism data from the UCS.mutations data, is also included for tutorial purposes. 
 
 ```{r, }
+library("CancerMutAnalyzer")
 # Import Data
-BiocManager::install("RTCGA.mutations")
+# BiocManager::install("RTCGA.mutations")
 library(RTCGA.mutations)
 data(UCS.mutations)
+
+library(dplyr)
+
+# Filter first 100 rows with Variant_Type as "SNP" and select specified columns
+filteredUCSFirst100SNP <- dplyr::filter(UCS.mutations, Variant_Type == "SNP") %>%
+  head(100) %>%
+  dplyr::select(Chromosome, Start_position, Reference_Allele, Tumor_Seq_Allele2, Genome_Change, Tumor_Sample_Barcode) %>%
+  dplyr::mutate(SNP_mutation = substr(Genome_Change, nchar(Genome_Change) - 2, nchar(Genome_Change))) %>%
+  dplyr::select(Chromosome, Start_position, Reference_Allele, Tumor_Seq_Allele2, SNP_mutation, Tumor_Sample_Barcode)
+
+data(filteredUCSFirst100SNP)
 
 # Preview Datasets
 head(UCS.mutations)
@@ -93,7 +105,7 @@ head(filteredUCSFirst100SNP)
 ```
 
 #### Process Mutation Data
-The `extractMutationData` function extracts specified columns from a mutation data set. When it is run with the default setting, the function will return a dataframe with the conatining information on "Chromosome", "Start_position", "End_position", Variant_Type", "Reference_Allele", "Tumor_Seq_Allele1", "Genome_Change", and "Tumor_Sample_Barcode". 
+The `extractMutationData` function extracts specified columns from a mutation data set. When it is run with the default setting, the function will return a dataframe with the containing information on "Chromosome", "Start_position", "End_position", Variant_Type", "Reference_Allele", "Tumor_Seq_Allele1", "Genome_Change", and "Tumor_Sample_Barcode". 
 ```{r, }
 extractMutationData(UCS.mutations)
 ```

@@ -83,7 +83,7 @@ extractMutationSequences <- function(data, padding = 1, return.DNAStringSet = FA
 
   # Create a GRanges object from the input mutation data
   mutations_gr <- GenomicRanges::GRanges(
-    seqnames = Rle(data$Chromosome),
+    seqnames = factor(data$Chromosome),
     ranges = IRanges::IRanges(start = data$Start_position - padding, end = data$Start_position + padding)
   )
 
