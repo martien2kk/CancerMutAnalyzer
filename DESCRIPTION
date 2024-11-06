@@ -7,9 +7,9 @@ Authors@R: person("Keren Zhang",
                 role = c("aut", "cre"))
 Maintainer: Keren Zhang <keren.zhang@utoronto.ca>
 Description: The CancerMutAnalyzer is an R package for enhancing the analysis 
-of cancer mutation data by providing tools for data extraction, filtering, 
-sequence analysis, and visualization to help researchers identify mutation 
-patterns and genomic signatures.
+   of cancer mutation data by providing tools for data extraction, filtering, 
+   sequence analysis, and visualization to help researchers identify mutation 
+   patterns and genomic signatures.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
