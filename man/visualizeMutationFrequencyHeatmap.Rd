@@ -21,10 +21,21 @@ This function creates a heatmap to visualize mutation frequency based on two spe
 such as \code{Reference_Allele} and \code{Tumor_Seq_Allele2}. Rows with values other than single-letter bases
 in either column are excluded.
 }
+\note{
+ChatGPT was used to imporve functionality and debug
+}
 \examples{
 \dontrun{
 # Visualize mutation frequency by Reference and Tumor alleles
 visualizeMutationFrequencyHeatmap(UCS.mutations, group_by_columns = c("Reference_Allele", "Tumor_Seq_Allele2"))
 }
 
+}
+\references{
+OpenAI. (2024). ChatGPT (Version 3.5) \link{Large language model}. https://chat.openai.com/chat'
+
+Wickham H. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
+
+Wickham H, François R, Henry L, Müller K, Vaughan D (2023). \emph{dplyr: A Grammar of Data Manipulation}. R
+package version 1.1.4, \url{https://CRAN.R-project.org/package=dplyr}.
 }

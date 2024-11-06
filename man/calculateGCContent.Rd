@@ -44,3 +44,8 @@ print(gc_content)
 }
 
 }
+\references{
+Pagès H, Aboyoun P, Gentleman R, DebRoy S (2024). \emph{Biostrings: Efficient manipulation of biological
+strings}. doi:10.18129/B9.bioc.Biostrings \url{https://doi.org/10.18129/B9.bioc.Biostrings}, R package version
+2.72.1, \url{https://bioconductor.org/packages/Biostrings}.
+}

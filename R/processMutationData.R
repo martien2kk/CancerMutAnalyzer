@@ -1,10 +1,10 @@
 #' Extract Specific Columns from Mutation Data
 #'
-#' This function extracts specified columns from a mutation dataset. It has default settings
+#' This function extracts specified columns from a mutation data set. It has default settings
 #' for commonly used columns but allows for user customization. It checks whether the input
 #' is a data frame and whether the specified columns exist in the data frame.
 #'
-#' @param mutation_data A data frame containing mutation data.
+#' @param mutation_data Cancer mutation data in Mutation Annotation Format (MAF) or data frame format.
 #' @param selected_columns A character vector specifying the columns to be extracted from the
 #'        mutation_data data frame. Default columns are:
 #'        \itemize{
@@ -40,6 +40,18 @@
 #' }
 #'
 #' @import dplyr
+#'
+#' @references
+#' Kosinski M (2024). _RTCGA.mutations: Mutations datasets from The Cancer Genome Atlas Project_.
+#' doi:10.18129/B9.bioc.RTCGA.mutations <https://doi.org/10.18129/B9.bioc.RTCGA.mutations>, R package version
+#' 20151101.34.0, <https://bioconductor.org/packages/RTCGA.mutations>.
+#'
+#' R Core Team (2024). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical
+#' Computing, Vienna, Austria. <https://www.R-project.org/>.
+#'
+#' Wickham H, François R, Henry L, Müller K, Vaughan D (2023). _dplyr: A Grammar of Data Manipulation_. R
+#' package version 1.1.4, <https://CRAN.R-project.org/package=dplyr>.
+#'
 #' @export
 extractMutationData <- function(mutation_data, selected_columns = c("Chromosome", "Start_position", "End_position",
                                                                     "Variant_Type", "Reference_Allele", "Tumor_Seq_Allele1",

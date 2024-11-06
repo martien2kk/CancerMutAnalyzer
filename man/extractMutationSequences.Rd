@@ -60,3 +60,15 @@ extractMutationSequences(filteredUCSFirst100SNP)
 }
 
 }
+\references{
+Lawrence, M., Huber, W., Pagès, H., Aboyoun, P., Carlson, M., et al. (2013).
+\emph{Software for Computing and Annotating Genomic Ranges}. PLoS Computational Biology, 9(8), e1003118.
+https://doi.org/10.1371/journal.pcbi.1003118
+
+Pagès H, Lawrence M, Aboyoun P (2024). \emph{S4Vectors: Foundation of vector-like and list-like containers in
+Bioconductor}. doi:10.18129/B9.bioc.S4Vectors \url{https://doi.org/10.18129/B9.bioc.S4Vectors}, R package
+version 0.42.1, \url{https://bioconductor.org/packages/S4Vectors}.
+
+Team TBD (2020). \emph{BSgenome.Hsapiens.UCSC.hg19: Full genome sequences for Homo sapiens (UCSC version hg19,
+based on GRCh37.p13)}. R package version 1.4.3.
+}

@@ -19,6 +19,9 @@ the mutation frequency on the y-axis.
 This function generates a bar plot showing the frequency of mutations based on a specified column.
 It is ideal for visualizing the distribution of mutations by a single category, such as chromosome or allele type.
 }
+\note{
+ChatGPT was used to imporve functionality and debug
+}
 \examples{
 \dontrun{
 
@@ -30,4 +33,12 @@ Example 2
 visualizeMutationFrequencyBar(filteredUCSFirst100SNP, group_by_column = "SNP_Mutation")
 }
 
+}
+\references{
+OpenAI. (2024). \emph{ChatGPT (Version 3.5)}. Retrieved from https://chat.openai.com/chat
+
+Wickham, H. (2016). \emph{ggplot2: Elegant Graphics for Data Analysis}. New York, NY: Springer-Verlag.
+
+Wickham, H., François, R., Henry, L., Müller, K., & Vaughan, D. (2023).
+\emph{dplyr: A Grammar of Data Manipulation} (R package version 1.1.4). Retrieved from https://CRAN.R-project.org/package=dplyr
 }

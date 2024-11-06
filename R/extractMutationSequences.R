@@ -52,6 +52,18 @@
 #' @import BSgenome.Hsapiens.UCSC.hg19
 #' @import S4Vectors
 #'
+#' @references
+#' Lawrence, M., Huber, W., Pagès, H., Aboyoun, P., Carlson, M., et al. (2013).
+#' _Software for Computing and Annotating Genomic Ranges_. PLoS Computational Biology, 9(8), e1003118.
+#' https://doi.org/10.1371/journal.pcbi.1003118
+#'
+#' Pagès H, Lawrence M, Aboyoun P (2024). _S4Vectors: Foundation of vector-like and list-like containers in
+#' Bioconductor_. doi:10.18129/B9.bioc.S4Vectors <https://doi.org/10.18129/B9.bioc.S4Vectors>, R package
+#' version 0.42.1, <https://bioconductor.org/packages/S4Vectors>.
+#'
+#' Team TBD (2020). _BSgenome.Hsapiens.UCSC.hg19: Full genome sequences for Homo sapiens (UCSC version hg19,
+#' based on GRCh37.p13)_. R package version 1.4.3.
+#'
 #' @export
 extractMutationSequences <- function(data, padding = 1, return.DNAStringSet = FALSE) {
   # Validate input data

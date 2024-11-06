@@ -1,19 +1,226 @@
 ---
 title: "Introduction_CancerMutAnalyzer"
-output: rmarkdown::html_vignette
+author: "Keren Zhang"
+date: "`r format(Sys.time(), '%d %b %Y')`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    number_sections: false
 vignette: >
-  %\VignetteIndexEntry{Introduction_CancerMutAnalyzer}
+  %\VignetteIndexEntry{A tour of TestingPackage}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(fig.align = "center", 
+               out.width = "90%",
+               fig.width = 6, fig.height = 5.5,
+               dev.args=list(pointsize=10),
+               par = TRUE, # needed for setting hook 
+               collapse = TRUE, # collapse input & ouput code in chunks
+               warning = FALSE)
+knit_hooks$set(par = function(before, options, envir)
+  { if(before && options$fig.show != "none") 
+       par(family = "sans", mar=c(4.1,4.1,1.1,1.1), mgp=c(3,1,0), tcl=-0.5)
+})
+set.seed(1) # for exact reproducibility
+```
+       
+## Introduction
+
+The `CancerMutAnalyzer` is an R package designed to streamline and enhance the workflow for analyzing mutation data in cancer research. The package focuses on processing, visualizing, and analyzing mutation frequencies and genomic contexts, particularly targeting single nucleotide polymorphisms (SNPs) and other mutation types within cancer datasets. By providing functions for data extraction, filtering, sequence analysis, and visualizations (such as heatmaps of mutation frequencies), the package enables researchers to quickly identify mutation patterns and genomic signatures associated with different cancer types or tumor samples. This package adds to the current bioinformatics workflow by simplifying mutation analysis tasks that typically require multiple steps across various software. By centralizing these steps in one package, researchers can conduct analyses more efficiently, reduce the risk of errors from file conversions, and gain insights through streamlined visualizations. One unique feature of this package is the ability to examine the local nucleotide context surrounding mutations, which can be used to detect mutational hotspots or enrich mutation data with GC content or sequence-based patterns. Additionally, it addresses common issues such as data formatting, base filtering, and customized visualization for specific mutation characteristics, making it a comprehensive and user-friendly tool for cancer genomics. **This document gives an introduction to CancerMutAnalyzer (version 0.1.0)**. It was written in R Markdown, using the [knitr](https://cran.r-project.org/package=knitr) package for production. See `help(package = "CancerMutAnalyzer")` for further details. 
+
+
+To download **CancerMutAnalyzer**, use the following commands:
+
+``` r
+require("devtools")
+devtools::install_github("martien2kk/CancerMutAnalyzer", build_vignettes = TRUE)
+library("CancerMutAnalyzer")
+```
+To list all sample functions available in the package:
+``` r
+ls("package:CancerMutAnalyzer")
 ```
 
-```{r setup}
+To list all sample datasets available in the package:
+``` r
+data(package = "CancerMutAnalyzer")
+```
+
+<br>
+
+## Overview
+
+``` r
+ls("package:CancerMutAnalyzer")
+data(package = "CancerMutAnalyzer") 
+browseVignettes("CancerMutAnalyzer")
+```
+`CancerMutAnalyzer` contains 6 functions.
+
+1.  ***extractMutationData***: allows users to specify and extract specific columns from a mutation dataset in Mutation Annotation Format (MAF) or tabular format. It has default settings for commonly used columns but is customizable, so users can focus on relevant mutation details.
+
+2.  ***filterMutations***: provides flexible filtering based on user-specified conditions for any column. This allows users to subset mutation data based on exact values or numeric ranges for certain columns, such as specific genes or chromosomal regions.
+
+3.  ***extractMutationSequences***: retrieves nucleotide sequences surrounding mutation sites from the hg19 genome based on specified genomic coordinates in a data frame. Users can customize the length of the sequence extracted by adjusting the padding parameter, with the default setting providing a trinucleotide sequence centered around each mutation.
+
+4. ***visualizeMutationFrequencyBar***: generates a bar plot to display the frequency of mutations based on a specified column in a mutation dataset. This function is ideal for visualizing the distribution of mutations by a single categorical variable, such as chromosome or variant type.
+
+5. ***visualizeMutationFrequencyHeatmap***: creates a heatmap that visualizes mutation frequency based on two specified columns, such as Reference_Allele and Tumor_Seq_Allele2. It only includes rows where both columns contain nucleotide bases (A, T, C, G). This function is particularly useful for examining mutation patterns between pairs of alleles, highlighting high-frequency mutations across different nucleotide pairs.
+
+6. ***calculateGCContent***: calculates the GC content (the percentage of G and C bases) for each sequence around a mutation site.
+
+The package also contains two cancer mutation datasets, called UCS.mutations and filteredUCSFirst100SNP. Refer to package vignettes for more details. An overview of the package is illustrated below. 
+
+
+## Example Workflow
+
+#### Import Data
+In this introduction, we will analyze cancer mutation data from The Cancer Genome Atlas Project, using the RTCGA.mutations Bioconductor package. Specifically, we will look at data for Uterine Carcinosarcoma, which is a rare and aggressive type of cancer that arises from the uterus. Another dataset filteredUCSFirst100SNP, which contains the first 100 Single Nucleotide Polymorphism data from the UCS.mutations data, is also included for tutorial purposes. 
+
+```{r, }
+# Import Data
+BiocManager::install("RTCGA.mutations")
+library(RTCGA.mutations)
+data(UCS.mutations)
+
+# Preview Datasets
+head(UCS.mutations)
+head(filteredUCSFirst100SNP)
+```
+
+#### Process Mutation Data
+The `extractMutationData` function extracts specified columns from a mutation data set. When it is run with the default setting, the function will return a dataframe with the conatining information on "Chromosome", "Start_position", "End_position", Variant_Type", "Reference_Allele", "Tumor_Seq_Allele1", "Genome_Change", and "Tumor_Sample_Barcode". 
+```{r, }
+extractMutationData(UCS.mutations)
+```
+The user can also specify their own input for the columns to be selected:
+```{r, }
+extractMutationData(UCS.mutations, c("Chromosome", "Genome_Change"))
+```
+The `filterMutations` function filters a mutation dataset based on specified conditions provided by the user. By default, the function allows you to filter by any column within the dataset and apply either exact matches or range-based conditions for numeric columns.
+
+For example, to filter rows in a mutation dataset based on chromosome and specific position range, you can run the function as follows:
+
+```{r, }
+# Filter for mutations on Chromosome 17 within a specified start position range
+filterMutations(UCS.mutations, conditions = list(Chromosome = "1", Variant_Type = "SNP"))
+
+```
+In the example above, the function will return a filtered data frame containing only mutations found on Chromosome 1 with the specified Variant_Type.
+
+You can also apply multiple conditions, such as filtering by a gene symbol and mutation type:
+```{r, }
+# Filter for mutations in the TP53 gene with SNP variant type
+filterMutations(UCS.mutations, conditions = list(Hugo_Symbol = "TP53", Variant_Type = "SNP"))
+``` 
+
+To get more information about *extractMutationData* or *filterMutations* function, the help documentation will helpful too:
+```{r, }
 library(CancerMutAnalyzer)
+?CancerMutAnalyzer::extractMutationData
+?CancerMutAnalyzer::filterMutations
+``` 
+
+
+#### Extract Mutation Sequence Flanking The Mutation Cite. 
+
+The `extractMutationSequences` function allows users to retrieve nucleotide sequences surrounding mutation sites based on specified genomic coordinates. By default, the function extracts a trinucleotide sequence centered on each mutation (one base on each side of the mutation site). However, users can adjust the padding parameter to customize the sequence length around the mutation.
+
+To use `extractMutationSequences` with the default settings:
+
+```{r, }
+# Extract trinucleotide sequences around each mutation site
+extracted_sequences <- extractMutationSequences(filteredUCSFirst100SNP)
+print(extracted_sequences)
+``` 
+
+For users who wish to extract a larger sequence around each mutation site, the padding can be set to a higher value:
+```{r, }
+# Extract sequences with larger padding around each mutation site
+extended_sequences <- extractMutationSequences(filteredUCSFirst100SNP, padding = 10)
+print(extended_sequences)
+``` 
+
+#### Visualize Mutation Frequency
+
+The `visualizeMutationFrequencyBar` function provides a visualization of mutation frequency for a specified column in a mutation dataset. When executed with a specific column (e.g., "Chromosome"), the function generates a bar plot displaying the frequency of mutations across categories within that column. This function is useful for understanding the distribution of mutations based on categories like chromosomes, genes, or allele types.
+
+To use the default function, pass in the data along with the desired column to group by:
+
+```{r, }
+visualizeMutationFrequencyBar(UCS.mutations, group_by_column = "Chromosome")
+
+#You can also specify other columns for visualization:
+visualizeMutationFrequencyBar(filteredUCSFirst100SNP, group_by_column = "SNP_Mutation")
+
+``` 
+
+
+The `visualizeMutationFrequencyHeatmap` function visualizes the frequency of mutations based on two specified columns, generating a heatmap with mutation counts. This function is especially useful for analyzing mutation patterns in paired nucleotide columns, like Reference_Allele and Tumor_Seq_Allele2, to identify mutation frequency between alleles. What is specific about this function is that the parameters must be character vectors of exactly two column names to group by for mutation frequency counts. These columns must contain only nucleotide bases (e.g., "A", "T", "C", "G").
+
+To create a heatmap:
+
+```{r, }
+visualizeMutationFrequencyHeatmap(UCS.mutations, group_by_columns = c("Reference_Allele", "Tumor_Seq_Allele2"))
+
+``` 
+
+#### Calculate GC Content
+
+The `calculateGCContent` function calculates the GC content (percentage of G and C bases) for each sequence in a given DNA sequence dataset. This function is useful for analyzing the GC-richness of sequences around mutation sites, which may be obtained using the extractMutationSequences function. By default, the function will return a data frame with each input sequence and its corresponding GC content percentage.
+```{r, }
+extracted_data <- extractMutationSequences(filteredUCSFirst100SNP, 15)
+extracted_sequences <- extracted_data$sequences
+
+gc_content <- calculateGCContent(extracted_sequences)
+gc_content
+``` 
+
+
+## Package References
+
+- Zhang, K. (2024) TestingPackage: An Example R Package For
+  BCB410H. Unpublished. https://github.com/anjalisilva/TestingPackage
+
+<br>
+
+## Other References
+
+- Kosinski M (2024). _RTCGA.mutations: Mutations datasets from The Cancer Genome Atlas Project_.
+  doi:10.18129/B9.bioc.RTCGA.mutations <https://doi.org/10.18129/B9.bioc.RTCGA.mutations>, R package version
+  20151101.34.0, <https://bioconductor.org/packages/RTCGA.mutations>.
+  
+
+- Lawrence M, Huber W, Pag\`es H, Aboyoun P, Carlson M, et al. (2013) Software for Computing and Annotating
+  Genomic Ranges. PLoS Comput Biol 9(8): e1003118. doi:10.1371/journal.pcbi.1003118
+  
+- OpenAI. (2024). _ChatGPT (Version 3.5)_. Retrieved from https://chat.openai.com/chat
+
+
+- Pagès H, Lawrence M, Aboyoun P (2024). _S4Vectors: Foundation of vector-like and list-like containers in
+  Bioconductor_. doi:10.18129/B9.bioc.S4Vectors <https://doi.org/10.18129/B9.bioc.S4Vectors>, R package
+  version 0.42.1, <https://bioconductor.org/packages/S4Vectors>.
+  
+
+- R Core Team (2024). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical
+  Computing, Vienna, Austria. <https://www.R-project.org/>.
+  
+- Team TBD (2020). _BSgenome.Hsapiens.UCSC.hg19: Full genome sequences for Homo sapiens (UCSC version hg19,
+  based on GRCh37.p13)_. R package version 1.4.3.
+  
+
+-  Wickham, H., François, R., Henry, L., Müller, K., & Vaughan, D. (2023). _dplyr: A Grammar of Data Manipulation_ (R package version 1.1.4). Retrieved from https://CRAN.R-project.org/package=dplyr
+
+- Wickham, H. (2016). _ggplot2: Elegant Graphics for Data Analysis_. New York, NY: Springer-Verlag.
+
+- Wickham, H. and J. Bryan (2019). *R Packages* (2nd edition). Newton, Massachusetts: O'Reilly Media. https://r-pkgs.org/
+
+----
+
+```{r}
+sessionInfo()
 ```

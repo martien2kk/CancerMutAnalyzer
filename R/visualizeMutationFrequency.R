@@ -22,6 +22,18 @@
 #'
 #' @import ggplot2
 #' @import dplyr
+#'
+#' @references
+#' OpenAI. (2024). _ChatGPT (Version 3.5)_. Retrieved from https://chat.openai.com/chat
+#'
+#' Wickham, H. (2016). _ggplot2: Elegant Graphics for Data Analysis_. New York, NY: Springer-Verlag.
+#'
+#' Wickham, H., François, R., Henry, L., Müller, K., & Vaughan, D. (2023).
+#' _dplyr: A Grammar of Data Manipulation_ (R package version 1.1.4). Retrieved from https://CRAN.R-project.org/package=dplyr
+#'
+#' @note
+#' ChatGPT was used to imporve functionality and debug
+#'
 #' @export
 visualizeMutationFrequencyBar <- function(data, group_by_column) {
   # Check if the specified column exists in the data
@@ -80,6 +92,18 @@ visualizeMutationFrequencyBar <- function(data, group_by_column) {
 #'
 #' @import ggplot2
 #' @import dplyr
+#'
+#' @references
+#' OpenAI. (2024). ChatGPT (Version 3.5) [Large language model]. https://chat.openai.com/chat'
+#'
+#' Wickham H. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
+#'
+#' Wickham H, François R, Henry L, Müller K, Vaughan D (2023). _dplyr: A Grammar of Data Manipulation_. R
+#' package version 1.1.4, <https://CRAN.R-project.org/package=dplyr>.
+#'
+#' @note
+#' ChatGPT was used to imporve functionality and debug
+#'
 #' @export
 visualizeMutationFrequencyHeatmap <- function(data, group_by_columns) {
   # Ensure group_by_columns is a vector of exactly two column names

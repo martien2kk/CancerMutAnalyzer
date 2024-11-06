@@ -67,20 +67,13 @@ runTestingPackage() # not for Assessment 4; only for Assessment 5
 
 ## Overview
 
-Provide the following commands, customized to your R package. Then
-provide a list of user accessible functions within the package and a
-brief description of each. Include one image illustrating the overview
-of the package that shows the inputs and outputs. Ensure the image is
-deposited in the correct location, as discussed in class. Point the user
-to vignettes for a tutorial of your package. E.g., <br> <br> <br>
-
 ``` r
 ls("package:CancerMutAnalyzer")
 data(package = "CancerMutAnalyzer") 
 browseVignettes("CancerMutAnalyzer")
 ```
 
-`CancerMutAnalyzer` contains 3 functions.
+`CancerMutAnalyzer` contains 6 functions.
 
 1.  ***extractMutationData***: allows users to specify and extract
     specific columns from a mutation dataset in Mutation Annotation
@@ -154,20 +147,38 @@ the development of this package.
 
 ## References
 
-Provide full references for all sources used, including for the packages
-and tools mentioned under ‘Contributions’, in one format. E.g., <br>
-<br>
+- Kosinski M (2024). *RTCGA.mutations: Mutations datasets from The
+  Cancer Genome Atlas Project*. <doi:10.18129/B9.bioc.RTCGA.mutations>
+  <https://doi.org/10.18129/B9.bioc.RTCGA.mutations>, R package version
+  20151101.34.0, <https://bioconductor.org/packages/RTCGA.mutations>.
+
+- Lawrence M, Huber W, Pag\`es H, Aboyoun P, Carlson M, et al. (2013)
+  Software for Computing and Annotating Genomic Ranges. PLoS Comput Biol
+  9(8): e1003118. <doi:10.1371/journal.pcbi.1003118>
+
+- OpenAI. (2024). *ChatGPT (Version 3.5)*. Retrieved from
+  <https://chat.openai.com/chat>
+
+- Pagès H, Lawrence M, Aboyoun P (2024). *S4Vectors: Foundation of
+  vector-like and list-like containers in Bioconductor*.
+  <doi:10.18129/B9.bioc.S4Vectors>
+  <https://doi.org/10.18129/B9.bioc.S4Vectors>, R package version
+  0.42.1, <https://bioconductor.org/packages/S4Vectors>.
 
 - R Core Team (2024). *R: A Language and Environment for Statistical
   Computing*. R Foundation for Statistical Computing, Vienna, Austria.
   <https://www.R-project.org/>.
 
-- Wickham H, François R, Henry L, Müller K, Vaughan D (2023). *dplyr: A
-  Grammar of Data Manipulation*. R package version 1.1.4,
-  <https://CRAN.R-project.org/package=dplyr>.
+- Team TBD (2020). *BSgenome.Hsapiens.UCSC.hg19: Full genome sequences
+  for Homo sapiens (UCSC version hg19, based on GRCh37.p13)*. R package
+  version 1.4.3.
 
-- Wickham, H. ggplot2: Elegant Graphics for Data Analysis.
-  Springer-Verlag New York, 2016.
+- Wickham, H., François, R., Henry, L., Müller, K., & Vaughan, D.
+  (2023). *dplyr: A Grammar of Data Manipulation* (R package version
+  1.1.4). Retrieved from <https://CRAN.R-project.org/package=dplyr>
+
+- Wickham, H. (2016). *ggplot2: Elegant Graphics for Data Analysis*. New
+  York, NY: Springer-Verlag.
 
 - Wickham, H. and J. Bryan (2019). *R Packages* (2nd edition). Newton,
   Massachusetts: O’Reilly Media. <https://r-pkgs.org/>
