@@ -13,6 +13,7 @@ Description: The CancerMutAnalyzer is an R package for enhancing the analysis
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+biocViews: Software, AnnotationData
 Imports: 
     Biostrings,
     BSgenome.Hsapiens.UCSC.hg19,
