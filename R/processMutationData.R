@@ -113,10 +113,10 @@ filterMutations <- function(data, conditions) {
     condition <- conditions[[col]]
 
     # Apply the condition based on its type
-    if (is.vector(condition) && length(condition) == 1) {
-      # Exact match
-      data <- data[data[[col]] == condition, ]
-    } else if (is.vector(condition) && length(condition) == 2) {
+    if (is.vector(condition)) {
+      # Multiple values: Match any of the values
+      data <- data[data[[col]] %in% condition, ]
+    } else if (is.numeric(condition) && length(condition) == 2) {
       # Range filtering for numeric columns
       if (is.numeric(data[[col]])) {
         data <- data[data[[col]] >= condition[1] & data[[col]] <= condition[2], ]
@@ -124,10 +124,9 @@ filterMutations <- function(data, conditions) {
         stop(paste("Range filtering is only applicable to numeric columns. Column", col, "is not numeric."))
       }
     } else {
-      stop("Invalid condition format. Use a single value or a two-element numeric vector for range filtering.")
+      stop("Invalid condition format. Use a vector for multiple values or a two-element numeric vector for range filtering.")
     }
   }
 
   return(data)
 }
-
