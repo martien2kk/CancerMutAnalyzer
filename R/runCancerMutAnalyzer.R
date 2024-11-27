@@ -1,7 +1,9 @@
 #' Launch Shiny App For Package CancerMutAnalyzer
 #'
-#' A function that launches the shiny app for this package.
-#' The shiny app permit to perform
+#' A function that launches the Shiny app for CancerMutAnalyzer
+#' This app will allow users to create visualisations of Mutation Frequency
+#' based on different clinical attributes.
+#' The code has been placed in \code{./inst/shiny-scripts}.
 #'
 #' @return No return value but open up a shiny page.
 #'
@@ -13,7 +15,7 @@
 #' @author Keren Zhang, \email{keren.zhang@utoronto.ca}
 #'
 #' @references
-#'
+#' Grolemund, G. (2015). Learn Shiny - Video Tutorials. \href{https://shiny.rstudio.com/tutorial/}{Link}
 #'
 #' @export
 #' @importFrom shiny runApp

@@ -2,115 +2,67 @@ library(shiny)
 library(ggplot2)
 library(dplyr)
 
-ui <- page_fluid(
-  titlePanel("Mutation Data Visualization App"),
-  navset_card_tab(
-    # Home tab
-    nav_panel("Home",
-              div(class = "card", htmlOutput("homeContent"))
-    ),
+# Load the mutation data
+load("./data/filteredUCSFirst100SNP.rda")  # Adjust path if necessary
 
-    # Bar Plot tab
-    nav_panel("Bar Plot",
-              "Visualize Mutation Frequency with a Bar Plot",
-              page_sidebar(
-                sidebar = sidebar("Input & Parameters",
-                                  fileInput("mutationDataBP",
-                                            "Upload Mutation Data in CSV format"),
-                                  selectInput("groupByColumn",
-                                              "Group by Column:",
-                                              choices = NULL),
-                                  actionButton("runBarPlot", "Generate Bar Plot")
-                ),
-                card("Bar Plot of Mutation Frequency",
-                     plotOutput("barPlot"),
-                     downloadButton("downloadBarPlot", "Download Bar Plot"))
-              )
-    ),
-
-    # Heatmap tab
-    nav_panel("Heatmap",
-              "Visualize Mutation Frequency with a Heatmap",
-              page_sidebar(
-                sidebar = sidebar("Input & Parameters",
-                                  fileInput("mutationDataHM",
-                                            "Upload Mutation Data in CSV format"),
-                                  selectizeInput("groupByColumns",
-                                                 "Group by Columns (Select 2):",
-                                                 choices = NULL,
-                                                 multiple = TRUE,
-                                                 options = list(maxItems = 2)),
-                                  actionButton("runHeatmap", "Generate Heatmap")
-                ),
-                card("Heatmap of Mutation Frequency",
-                     plotOutput("heatmapPlot"),
-                     downloadButton("downloadHeatmap", "Download Heatmap"))
-              )
-    )
-  ),
-  id = "tab"
+# Define UI
+ui <- navbarPage(title = "Visualize Mutation Frequencies",
+                 tabPanel("Bar Plot For Mutation Frequency",
+                          sidebarLayout(
+                            sidebarPanel(
+                              selectInput("group_by_column", "Select Column to Group By for Bar Plot:",
+                                          choices = setdiff(names(filteredUCSFirst100SNP), c("Start_position", "Tumor_Sample_Barcode"))),
+                              uiOutput("checkboxes"),  # Output for dynamic checkbox group
+                              actionButton("plot_bar", "Generate Bar Plot")
+                            ),
+                            mainPanel(
+                              plotOutput("barPlot")
+                            )
+                          )),
+                 tabPanel("Heatmap for Allele Frequencies",
+                          sidebarLayout(
+                            sidebarPanel(
+                              actionButton("plot_heatmap", "Generate Heatmap")
+                            ),
+                            mainPanel(
+                              plotOutput("heatmapPlot")
+                            )
+                          ))
 )
 
+# Define server logic
 server <- function(input, output, session) {
-  # Home
-  output$homeContent <- renderUI({
-    rmdFile <- "./homeContent.Rmd"
-    renderedHTML <- rmarkdown::render(rmdFile,
-                                      output_format = "html_fragment",
-                                      quiet = TRUE)
-    HTML(readLines(renderedHTML, warn = FALSE))
+
+  # Dynamic output for checkboxes based on selected column for bar plot
+  output$checkboxes <- renderUI({
+    choices <- unique(filteredUCSFirst100SNP[[input$group_by_column]])
+    # Natural order sorting for strings and numbers
+    sorted_choices <- sort(choices, method="radix")
+    checkboxGroupInput("selected_values", "Select Values:", choices = sorted_choices, selected = sorted_choices)
   })
 
-  # Bar Plot
-  observeEvent(input$mutationDataBP, {
-    req(input$mutationDataBP)
-    mutationData <- read.csv(input$mutationDataBP$datapath, stringsAsFactors = FALSE)
-    updateSelectInput(session, "groupByColumn", choices = names(mutationData))
-  })
-
-  observeEvent(input$runBarPlot, {
-    req(input$mutationDataBP, input$groupByColumn)
-    mutationData <- read.csv(input$mutationDataBP$datapath, stringsAsFactors = FALSE)
-
-    plot <- visualizeMutationFrequencyBar(mutationData, input$groupByColumn)
-
-    output$barPlot <- renderPlot({ plot })
-
-    output$downloadBarPlot <- downloadHandler(
-      filename = "bar_plot.png",
-      content = function(file) {
-        ggsave(file, plot = plot, width = 8, height = 6)
+  observeEvent(input$plot_bar, {
+    output$barPlot <- renderPlot({
+      # Filter the data based on the checked values
+      if (length(input$selected_values) > 0) {
+        filtered_data <- filteredUCSFirst100SNP %>%
+          filter(.[[input$group_by_column]] %in% input$selected_values)
+        visualizeMutationFrequencyBar(filtered_data, input$group_by_column)
+      } else {
+        # Return an empty plot if no values are selected
+        ggplot() + ggtitle("No data to display - select at least one value")
       }
-    )
+    })
   })
 
-  # Heatmap
-  observeEvent(input$mutationDataHM, {
-    req(input$mutationDataHM)
-    mutationData <- read.csv(input$mutationDataHM$datapath, stringsAsFactors = FALSE)
-    updateSelectizeInput(session, "groupByColumns", choices = names(mutationData))
-  })
-
-  observeEvent(input$runHeatmap, {
-    req(input$mutationDataHM, input$groupByColumns)
-    if (length(input$groupByColumns) != 2) {
-      showNotification("Please select exactly 2 columns for the heatmap.", type = "error")
-      return(NULL)
-    }
-
-    mutationData <- read.csv(input$mutationDataHM$datapath, stringsAsFactors = FALSE)
-
-    plot <- visualizeMutationFrequencyHeatmap(mutationData, input$groupByColumns)
-
-    output$heatmapPlot <- renderPlot({ plot })
-
-    output$downloadHeatmap <- downloadHandler(
-      filename = "heatmap_plot.png",
-      content = function(file) {
-        ggsave(file, plot = plot, width = 8, height = 6)
-      }
-    )
+  # Heatmap specific to allele columns
+  observeEvent(input$plot_heatmap, {
+    output$heatmapPlot <- renderPlot({
+      # Directly specify the columns for heatmap
+      visualizeMutationFrequencyHeatmap(filteredUCSFirst100SNP, c("Reference_Allele", "Tumor_Seq_Allele2"))
+    })
   })
 }
 
+# Run the application
 shinyApp(ui = ui, server = server)
