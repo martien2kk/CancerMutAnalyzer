@@ -100,18 +100,19 @@ filteredUCSFirst100SNP <- dplyr::filter(UCS.mutations, Variant_Type == "SNP") %>
 data(filteredUCSFirst100SNP)
 
 # Preview Datasets
-head(UCS.mutations)
-head(filteredUCSFirst100SNP)
+head(UCS.mutations,5)
+head(filteredUCSFirst100SNP, 5)
 ```
 
 #### Process Mutation Data
 The `extractMutationData` function extracts specified columns from a mutation data set. When it is run with the default setting, the function will return a dataframe with the containing information on "Chromosome", "Start_position", "End_position", Variant_Type", "Reference_Allele", "Tumor_Seq_Allele1", "Genome_Change", and "Tumor_Sample_Barcode". 
 ```{r, }
-extractMutationData(UCS.mutations)
+subset_UCS_data <- head(UCS.mutations, 25)
+extractMutationData(subset_UCS_data)
 ```
 The user can also specify their own input for the columns to be selected:
 ```{r, }
-extractMutationData(UCS.mutations, c("Chromosome", "Genome_Change"))
+extractMutationData(subset_UCS_data, c("Chromosome", "Genome_Change"))
 ```
 The `filterMutations` function filters a mutation dataset based on specified conditions provided by the user. By default, the function allows you to filter by any column within the dataset and apply either exact matches or range-based conditions for numeric columns.
 
@@ -119,7 +120,7 @@ For example, to filter rows in a mutation dataset based on chromosome and specif
 
 ```{r, }
 # Filter for mutations on Chromosome 17 within a specified start position range
-filterMutations(UCS.mutations, conditions = list(Chromosome = "1", Variant_Type = "SNP"))
+filterMutations(subset_UCS_data, conditions = list(Chromosome = "1", Variant_Type = "SNP"))
 
 ```
 In the example above, the function will return a filtered data frame containing only mutations found on Chromosome 1 with the specified Variant_Type.
