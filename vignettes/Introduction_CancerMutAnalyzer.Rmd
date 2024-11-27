@@ -155,14 +155,14 @@ To use `extractMutationSequences` with the default settings:
 ```{r, }
 # Extract trinucleotide sequences around each mutation site
 extracted_sequences <- extractMutationSequences(filteredUCSFirst100SNP)
-head(extracted_sequences, 2)
+head(extracted_sequences, 3)
 ``` 
 
 For users who wish to extract a larger sequence around each mutation site, the padding can be set to a higher value:
 ```{r, }
 # Extract sequences with larger padding around each mutation site
 extended_sequences <- extractMutationSequences(filteredUCSFirst100SNP, padding = 10)
-print(extended_sequences)
+head(extended_sequences)
 ``` 
 
 #### Visualize Mutation Frequency
@@ -197,14 +197,14 @@ extracted_data <- extractMutationSequences(filteredUCSFirst100SNP, 15)
 extracted_sequences <- extracted_data$sequences
 
 gc_content <- calculateGCContent(extracted_sequences)
-gc_content
+head(gc_content, 5)
 ``` 
 
 
 ## Package References
 
-- Zhang, K. (2024) TestingPackage: An Example R Package For
-  BCB410H. Unpublished. https://github.com/anjalisilva/TestingPackage
+- Zhang, K. (2024) CancerMutAnalyzer: An Example R Package For
+  BCB410H. Unpublished. https://github.com/martien2kk/CancerMutAnalyzer
 
 <br>
 
