@@ -128,7 +128,14 @@ In the example above, the function will return a filtered data frame containing 
 You can also apply multiple conditions, such as filtering by a gene symbol and mutation type:
 ```{r, }
 # Filter for mutations in the TP53 gene with SNP variant type
-filterMutations(UCS.mutations, conditions = list(Hugo_Symbol = "TP53", Variant_Type = "SNP"))
+filterMutations(subset_UCS_data, conditions = list(Hugo_Symbol = "IPO11", Variant_Type = "SNP"))
+
+
+# Example: Filtering by multiple Hugo_Symbol values and a single Variant_Type
+filterMutations(subset_UCS_data, conditions = list(
+  Hugo_Symbol = c("IPO11", "CALR"),
+  Variant_Type = "SNP"
+))
 ``` 
 
 To get more information about *extractMutationData* or *filterMutations* function, the help documentation will helpful too:

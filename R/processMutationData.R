@@ -96,6 +96,12 @@ extractMutationData <- function(mutation_data, selected_columns = c("Chromosome"
 #' filtered_data <- filterMutations(UCS.mutations, conditions = list(Hugo_Symbol = "TP53"))
 #' }
 #'
+#' # Example 3
+#' # Filtering by multiple conditions for a single column, like 2 Hugo_Symbol values and a single Variant_Type
+#' filterMutations(subset_UCS_data, conditions = list(
+#' Hugo_Symbol = c("IPO11", "CALR"),
+#' Variant_Type = "SNP"))
+#'
 #' @export
 filterMutations <- function(data, conditions) {
   # Check if conditions are provided
