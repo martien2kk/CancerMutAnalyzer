@@ -35,18 +35,18 @@ The `CancerMutAnalyzer` is an R package designed to streamline and enhance the w
 
 To download **CancerMutAnalyzer**, use the following commands:
 
-``` r
+```{r, }
 require("devtools")
 devtools::install_github("martien2kk/CancerMutAnalyzer", build_vignettes = TRUE)
 library("CancerMutAnalyzer")
 ```
 To list all sample functions available in the package:
-``` r
+```{r, }
 ls("package:CancerMutAnalyzer")
 ```
 
 To list all sample datasets available in the package:
-``` r
+```{r, }
 data(package = "CancerMutAnalyzer")
 ```
 
@@ -54,7 +54,7 @@ data(package = "CancerMutAnalyzer")
 
 ## Overview
 
-``` r
+```{r, }
 ls("package:CancerMutAnalyzer")
 data(package = "CancerMutAnalyzer") 
 browseVignettes("CancerMutAnalyzer")
@@ -87,18 +87,14 @@ library("CancerMutAnalyzer")
 BiocManager::install("RTCGA.mutations")
 library(RTCGA.mutations)
 data(UCS.mutations)
-
 library(dplyr)
-
 # Filter first 100 rows with Variant_Type as "SNP" and select specified columns
 filteredUCSFirst100SNP <- dplyr::filter(UCS.mutations, Variant_Type == "SNP") %>%
   head(100) %>%
   dplyr::select(Chromosome, Start_position, Reference_Allele, Tumor_Seq_Allele2, Genome_Change, Tumor_Sample_Barcode) %>%
   dplyr::mutate(SNP_mutation = substr(Genome_Change, nchar(Genome_Change) - 2, nchar(Genome_Change))) %>%
   dplyr::select(Chromosome, Start_position, Reference_Allele, Tumor_Seq_Allele2, SNP_mutation, Tumor_Sample_Barcode)
-
 data(filteredUCSFirst100SNP)
-
 # Preview Datasets
 head(UCS.mutations,5)
 head(filteredUCSFirst100SNP, 5)
@@ -121,7 +117,6 @@ For example, to filter rows in a mutation dataset based on chromosome and specif
 ```{r, }
 # Filter for mutations on Chromosome 1 with a specified Variant_Type
 filterMutations(subset_UCS_data, conditions = list(Chromosome = "1", Variant_Type = "SNP"))
-
 ```
 In the example above, the function will return a filtered data frame containing only mutations found on Chromosome 1 with the specified Variant_Type.
 
@@ -129,8 +124,6 @@ You can also apply multiple conditions, such as filtering by a gene symbol and m
 ```{r, }
 # Filter for mutations in the TP53 gene with SNP variant type
 filterMutations(subset_UCS_data, conditions = list(Hugo_Symbol = "IPO11", Variant_Type = "SNP"))
-
-
 # Example: Filtering by multiple Hugo_Symbol values and a single Variant_Type
 filterMutations(subset_UCS_data, conditions = list(
   Hugo_Symbol = c("IPO11", "CALR"),
@@ -173,10 +166,8 @@ To use the default function, pass in the data along with the desired column to g
 
 ```{r, }
 visualizeMutationFrequencyBar(UCS.mutations, group_by_column = "Chromosome")
-
 #You can also specify other columns for visualization:
 visualizeMutationFrequencyBar(filteredUCSFirst100SNP, group_by_column = "SNP_Mutation")
-
 ``` 
 
 
@@ -186,7 +177,6 @@ To create a heatmap:
 
 ```{r, }
 visualizeMutationFrequencyHeatmap(UCS.mutations, group_by_columns = c("Reference_Allele", "Tumor_Seq_Allele2"))
-
 ``` 
 
 #### Calculate GC Content
@@ -195,7 +185,6 @@ The `calculateGCContent` function calculates the GC content (percentage of G and
 ```{r, }
 extracted_data <- extractMutationSequences(filteredUCSFirst100SNP, 15)
 extracted_sequences <- extracted_data$sequences
-
 gc_content <- calculateGCContent(extracted_sequences)
 head(gc_content, 5)
 ``` 
@@ -213,25 +202,25 @@ head(gc_content, 5)
 - Kosinski M (2024). _RTCGA.mutations: Mutations datasets from The Cancer Genome Atlas Project_.
   doi:10.18129/B9.bioc.RTCGA.mutations <https://doi.org/10.18129/B9.bioc.RTCGA.mutations>, R package version
   20151101.34.0, <https://bioconductor.org/packages/RTCGA.mutations>.
-  
+
 
 - Lawrence M, Huber W, Pag\`es H, Aboyoun P, Carlson M, et al. (2013) Software for Computing and Annotating
   Genomic Ranges. PLoS Comput Biol 9(8): e1003118. doi:10.1371/journal.pcbi.1003118
-  
+
 - OpenAI. (2024). _ChatGPT (Version 3.5)_. Retrieved from https://chat.openai.com/chat
 
 
 - Pagès H, Lawrence M, Aboyoun P (2024). _S4Vectors: Foundation of vector-like and list-like containers in
   Bioconductor_. doi:10.18129/B9.bioc.S4Vectors <https://doi.org/10.18129/B9.bioc.S4Vectors>, R package
   version 0.42.1, <https://bioconductor.org/packages/S4Vectors>.
-  
+
 
 - R Core Team (2024). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical
   Computing, Vienna, Austria. <https://www.R-project.org/>.
-  
+
 - Team TBD (2020). _BSgenome.Hsapiens.UCSC.hg19: Full genome sequences for Homo sapiens (UCSC version hg19,
   based on GRCh37.p13)_. R package version 1.4.3.
-  
+
 
 -  Wickham, H., François, R., Henry, L., Müller, K., & Vaughan, D. (2023). _dplyr: A Grammar of Data Manipulation_ (R package version 1.1.4). Retrieved from https://CRAN.R-project.org/package=dplyr
 

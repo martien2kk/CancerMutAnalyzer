@@ -143,10 +143,21 @@ for brainstorming, debugging, and structuring the Roxygen documentation.
 
 ## References
 
-- Silva A. (2019). GitHub - anjalisilva/TestingPackage: R Package
-  Illustrating Components of an R package for BCB410H - Applied
-  Bioinformatics (2019-2023), University of Toronto, Canada. GitHub.
-  <https://github.com/anjalisilva/TestingPackage>
+- Attali D (2021). *shinyjs: Easily Improve the User Experience of Your
+  Shiny Apps in Seconds*. R package version 2.1.0,
+  <https://CRAN.R-project.org/package=shinyjs>.
+
+- Carey V, Harshfield B, Falcon S, Arora S, Shepherd L (2024).
+  *biocViews: Categorized views of R package repositories*.
+  <doi:10.18129/B9.bioc.biocViews>
+  <https://doi.org/10.18129/B9.bioc.biocViews>, R package version
+  1.72.0, <https://bioconductor.org/packages/biocViews>
+
+- Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Xie Y, Allen J,
+  McPherson J, Dipert A, Borges B (2024). *shiny: Web Application
+  Framework for R*. R package version 1.9.1.9000, commit
+  501b012b2b82c0c468dc921ff0a3d9a682c20623,
+  <https://github.com/rstudio/shiny>
 
 - Kosinski M (2024). *RTCGA.mutations: Mutations datasets from The
   Cancer Genome Atlas Project*. <doi:10.18129/B9.bioc.RTCGA.mutations>
@@ -169,6 +180,11 @@ for brainstorming, debugging, and structuring the Roxygen documentation.
 - R Core Team (2024). *R: A Language and Environment for Statistical
   Computing*. R Foundation for Statistical Computing, Vienna, Austria.
   <https://www.R-project.org/>.
+
+- Silva A. (2019). GitHub - anjalisilva/TestingPackage: R Package
+  Illustrating Components of an R package for BCB410H - Applied
+  Bioinformatics (2019-2023), University of Toronto, Canada. GitHub.
+  <https://github.com/anjalisilva/TestingPackage>
 
 - Team TBD (2020). *BSgenome.Hsapiens.UCSC.hg19: Full genome sequences
   for Homo sapiens (UCSC version hg19, based on GRCh37.p13)*. R package

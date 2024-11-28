@@ -93,8 +93,20 @@ The visualizeMutationFrequencyBar and visualizeMutationFrequencyHeatmap function
 Generative AI tools, OpenAI's ChatGPT, were used to provide suggestions for brainstorming, debugging, and structuring the Roxygen documentation. 
 
 ## References
-- Silva A. (2019). GitHub - anjalisilva/TestingPackage: R Package Illustrating Components of an R package for BCB410H - Applied Bioinformatics (2019-2023), University of Toronto, Canada. GitHub. https://github.com/anjalisilva/TestingPackage
-
+- Attali D (2021). _shinyjs: Easily Improve the User Experience of Your Shiny Apps
+  in Seconds_. R package version 2.1.0,
+  <https://CRAN.R-project.org/package=shinyjs>.
+  
+- Carey V, Harshfield B, Falcon S, Arora S, Shepherd L (2024). _biocViews:
+  Categorized views of R package repositories_. doi:10.18129/B9.bioc.biocViews
+  <https://doi.org/10.18129/B9.bioc.biocViews>, R package version 1.72.0,
+  <https://bioconductor.org/packages/biocViews>
+  
+- Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Xie Y, Allen J, McPherson J,
+  Dipert A, Borges B (2024). _shiny: Web Application Framework for R_. R package
+  version 1.9.1.9000, commit 501b012b2b82c0c468dc921ff0a3d9a682c20623,
+  <https://github.com/rstudio/shiny>
+  
 - Kosinski M (2024). _RTCGA.mutations: Mutations datasets from The Cancer Genome Atlas Project_.
   doi:10.18129/B9.bioc.RTCGA.mutations <https://doi.org/10.18129/B9.bioc.RTCGA.mutations>, R package version
   20151101.34.0, <https://bioconductor.org/packages/RTCGA.mutations>.
@@ -113,6 +125,8 @@ Generative AI tools, OpenAI's ChatGPT, were used to provide suggestions for brai
 
 - R Core Team (2024). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical
   Computing, Vienna, Austria. <https://www.R-project.org/>.
+
+- Silva A. (2019). GitHub - anjalisilva/TestingPackage: R Package Illustrating Components of an R package for BCB410H - Applied Bioinformatics (2019-2023), University of Toronto, Canada. GitHub. https://github.com/anjalisilva/TestingPackage
   
 - Team TBD (2020). _BSgenome.Hsapiens.UCSC.hg19: Full genome sequences for Homo sapiens (UCSC version hg19,
   based on GRCh37.p13)_. R package version 1.4.3.
