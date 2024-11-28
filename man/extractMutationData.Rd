@@ -11,46 +11,35 @@ extractMutationData(
 )
 }
 \arguments{
-\item{mutation_data}{Cancer mutation data in Mutation Annotation Format (MAF) or data frame format.}
+\item{mutation_data}{A data frame containing detailed cancer mutation information. It should be structured with columns that can include various mutation attributes. This data frame is expected to be sourced from genomic studies databases like TCGA, pre-loaded into the R environment using the \code{data()} function.}
 
-\item{selected_columns}{A character vector specifying the columns to be extracted from the
-mutation_data data frame. Default columns are:
+\item{selected_columns}{A character vector specifying the columns to be extracted. The default selection includes key mutation attributes commonly analyzed in genomic research:
 \itemize{
-\item \code{"Chromosome"}: The chromosome number on which the mutation occurs.
-\item \code{"Start_position"}: The starting position of the mutation on the chromosome.
-\item \code{"End_position"}: The ending position of the mutation on the chromosome.
-\item \code{"Variant_Type"}: The type of mutation, such as single nucleotide polymorphisms (SNP), deletion, or insertion.
-\item \code{"Reference_Allele"}: The base(s) found on the reference allele at the position of the mutation.
-\item \code{"Tumor_Seq_Allele1"}: The base(s) found in the tumor sample at the mutation position.
-\item \code{"Genome_Change"}: A character vector specifying the genomic change at the mutation site, typically in the format
-"g.chr\if{html}{\out{<chromosome>}}:\if{html}{\out{<position>}}<reference_base>>><mutated_base>". For example, "g.chr5:61733126G>T" indicates
-a mutation on chromosome 5 at position 61733126, where the reference base "G" has been mutated to "T".
-\item \code{"Tumor_Sample_Barcode"}: A unique identifier for the tumor sample in which the mutation was detected.
+\item \code{"Chromosome"}: The chromosome number where the mutation is located.
+\item \code{"Start_position"}: The genomic start position of the mutation.
+\item \code{"End_position"}: The genomic end position of the mutation.
+\item \code{"Variant_Type"}: The type of genetic variation (e.g., SNP, deletion).
+\item \code{"Reference_Allele"}: The reference allele at the mutation position.
+\item \code{"Tumor_Seq_Allele1"}: The allele in the tumor sample.
+\item \code{"Genome_Change"}: A description of the genomic alteration.
+\item \code{"Tumor_Sample_Barcode"}: Identifier for the tumor sample.
 }}
 }
 \value{
-Returns a data frame containing only the columns specified by the user.
+A data frame containing only the selected columns, facilitating focused analysis on specific mutation attributes.
 }
 \description{
-This function extracts specified columns from a mutation data set. It has default settings
-for commonly used columns but allows for user customization. It checks whether the input
-is a data frame and whether the specified columns exist in the data frame.
+This function extracts specified columns from a dataset containing genetic mutation data. It's tailored to handle data in Mutation Annotation Format (MAF) or similar structured data frames, which are typical outputs of genomic studies such as those from TCGA. This function simplifies the process of selecting specific mutation-related attributes for further analysis.
 }
 \examples{
-# Example 1
-
 \dontrun{
 library(RTCGA.mutations)
-data(UCS.mutations)
+data(UCS.mutations) # Load the UCS.mutations dataset from the RTCGA.mutations package. This dataset contains mutation data for uterine carcinosarcoma and is used here to demonstrate data extraction.
 extractMutationData(UCS.mutations, c("Chromosome", "Start_position", "End_position"))
-}
+# This example extracts the Chromosome, Start_position, and End_position columns from the UCS.mutations dataset to analyze genomic intervals.
 
-# Example 2
-
-\dontrun{
-library(RTCGA.mutations)
-data(UCS.mutations)
 extractMutationData(UCS.mutations)
+# In this example, the function uses default parameters to extract a broader set of mutation characteristics for initial explorations or broader analyses.
 }
 
 }

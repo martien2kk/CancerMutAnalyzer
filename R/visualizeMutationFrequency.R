@@ -5,6 +5,10 @@
 #'
 #' @param data A data frame containing mutation data, which must include the specified grouping column.
 #' @param group_by_column A character string specifying the column to group by for mutation frequency counts.
+#'        This argument determines how the mutation data will be categorized and displayed in the bar plot.
+#'        For instance, if you choose "Chromosome" as the `group_by_column`, the function will aggregate and display mutation counts for each chromosome.
+#'        Similarly, selecting "SNP_Mutation" would group and visualize mutation frequencies by the different SNP_Mutations. Ensure that the value provided matches exactly one of the column names in the `data` data frame.
+#'        Examples of valid inputs include "Chromosome", "Reference_Allele", etc. There is no default value for this parameter; it must be explicitly provided by the user based on the available columns in the dataset.
 #'
 #' @return A ggplot2 object showing a bar plot with the specified grouping column on the x-axis and
 #'         the mutation frequency on the y-axis.

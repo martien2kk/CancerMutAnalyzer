@@ -7,34 +7,46 @@
 filterMutations(data, conditions)
 }
 \arguments{
-\item{data}{A data frame containing mutation data, such as \code{UCS.mutations}.}
+\item{data}{A data frame containing mutation data, such as \code{UCS.mutations}, which typically includes detailed records
+of genetic mutations identified in cancer studies. This data frame must have structured columns where mutations
+are detailed by various descriptors (e.g., Chromosome, Gene Symbol, Mutation Type).}
 
-\item{conditions}{A list of conditions to filter by, where each element is named with a column name
-and contains the value or range to filter on. Example: \code{list(Chromosome = "1", Variant_Type = "SNP")}.}
+\item{conditions}{A list of conditions to filter by, where each element is named by a column name in the \code{data} data frame and
+contains the values or range to filter on. The conditions should be provided in a named list format where
+each name corresponds to a column in \code{data} and the associated value defines the filtering criterion.
+Examples include:
+- Single value condition: \code{list(Chromosome = "1")} filters data for mutations on chromosome 1.
+- Range condition: \code{list(Start_position = c(100000, 200000))} filters mutations occurring between these positions.
+- Multiple values condition: \code{list(Gene = c("TP53", "BRCA1"))} filters data for mutations in either TP53 or BRCA1 genes.}
 }
 \value{
-A filtered data frame that matches the specified conditions.
+A filtered data frame that matches the specified conditions. Each row in the returned data frame corresponds to a mutation
+record that meets all the filtering criteria specified in \code{conditions}. This makes it suitable for subsequent genetic
+analysis or reporting.
 }
 \description{
-This function filters mutation data based on user-specified conditions for any columns in the dataset.
+This function filters mutation data based on a set of user-defined conditions applied to specific columns of the dataset.
+It allows for flexible data querying, enabling users to filter mutation records by one or more attributes such as chromosome number,
+mutation type, gene symbol, etc. The function supports both single value matching and range conditions, making it highly versatile
+for exploring and subsetting genetic data for further analysis.
 }
 \examples{
 \dontrun{
-
-# Example 1
-# Filter by chromosome and variant type
+# Example 1: Filter by chromosome and variant type
+library(RTCGA.mutations)
+data(UCS.mutations)
 filtered_data <- filterMutations(UCS.mutations, conditions = list(Chromosome = "1", Variant_Type = "SNP"))
-filtered_data
+# This example filters the UCS.mutations dataset for mutations located on chromosome 1 that are classified as SNPs (single nucleotide polymorphisms).
 
-# Example 2
-# Filter by a specific gene symbol
+# Example 2: Filter by a specific gene symbol
 filtered_data <- filterMutations(UCS.mutations, conditions = list(Hugo_Symbol = "TP53"))
-}
+# Filters for mutations associated with the TP53 gene, known to play a role in cancer suppression.
 
-# Example 3
-# Filtering by multiple conditions for a single column, like 2 Hugo_Symbol values and a single Variant_Type
-filterMutations(subset_UCS_data, conditions = list(
+# Example 3: Filtering by multiple conditions for a single column
+filtered_data <- filterMutations(UCS.mutations, conditions = list(
 Hugo_Symbol = c("IPO11", "CALR"),
 Variant_Type = "SNP"))
+# This filters for mutations that are in either the IPO11 or CALR genes and are SNPs, demonstrating how to use multiple conditions for more refined filtering.
+}
 
 }
