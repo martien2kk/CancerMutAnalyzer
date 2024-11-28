@@ -1,12 +1,14 @@
 library(shiny)
 library(ggplot2)
 library(dplyr)
+library(shinyjs)  # Load shinyjs
 
 # Define UI
 ui <- navbarPage(title = "Visualize Mutation Frequencies",
                  tabPanel("Bar Plot",
                           sidebarLayout(
                             sidebarPanel(
+                              useShinyjs(),  # Initialize shinyjs
                               tags$h3("About This App"),
                               tags$p("This Shiny app visualizes mutation frequencies using bar plots and heatmaps. It allows for interactive selection of data categories and provides options to upload your own datasets in CSV or RDA formats."),
                               br(),
@@ -17,7 +19,7 @@ ui <- navbarPage(title = "Visualize Mutation Frequencies",
                               tags$p("4. Upload your own data using the controls below or download and use the example dataset."),
                               br(),
                               tags$h4("Download Example Dataset"),
-                              tags$p("The example dataset, filteredUCSFirst100SNP.rda, includes mutation data filtered for specific SNP characteristics. Specifically, it includes the first 100 Single Nucleotide Polymorphism Mutations In The UCS.mutations Dataset. UCS Stands for Uterine Carcinosarcoma, and it is from The Cancer Genome Atlas Project 2015-11-01 snapshot. This dataset is ideal for demonstrating the functionalities of this app."),
+                              tags$p("The example dataset, filteredUCSFirst100SNP.rda, includes mutation data filtered for specific SNP characteristics."),
                               tags$a(href = "https://github.com/martien2kk/CancerMutAnalyzer/raw/master/data/filteredUCSFirst100SNP.rda",
                                      "Download filteredUCSFirst100SNP.rda", target = "_blank"),
                               br(),
@@ -57,7 +59,7 @@ server <- function(input, output, session) {
       load(inFile$datapath)  # Load the RDA file
       data(get(ls()[1]))  # Assume the RDA file contains one main dataset
     } else if (grepl("\\.csv$", inFile$name)) {
-      data <- read.csv(inFile$datapath)  # Load a CSV file
+      data(read.csv(inFile$datapath))  # Load a CSV file
     }
 
     updateSelectInput(session, "group_by_column", choices = setdiff(names(data()), c("Start_position", "Tumor_Sample_Barcode")))
@@ -74,15 +76,15 @@ server <- function(input, output, session) {
 
   observeEvent(input$plot_bar, {
     req(data())
-    output$barPlot <- renderPlot({
-      if (length(input$selected_values) > 0) {
+    if (length(input$selected_values) == 0) {
+      shinyjs::alert("Please select at least one value before generating the plot.")
+    } else {
+      output$barPlot <- renderPlot({
         filtered_data <- data() %>%
           filter(.[[input$group_by_column]] %in% input$selected_values)
         visualizeMutationFrequencyBar(filtered_data, input$group_by_column)
-      } else {
-        ggplot() + ggtitle("No data to display - select at least one value")
-      }
-    })
+      })
+    }
   })
 
   # Heatmap specific to allele columns
