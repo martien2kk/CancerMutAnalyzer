@@ -19,7 +19,7 @@
 #'
 #' @export
 #' @importFrom shiny runApp
-runMPLNClust <- function() {
+runCancerMutAnalyzer <- function() {
   appDir <- system.file("shiny-scripts",
                         package = "CancerMutAnalyzer")
   shiny::runApp(appDir, display.mode = "normal")

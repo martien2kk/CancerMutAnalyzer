@@ -4,6 +4,11 @@
 #'
 #' @source The Cancer Genome Atlas (TCGA) Program.
 #'
+#' @references
+#' #' Kosinski M (2024). _RTCGA.mutations: Mutations datasets from The Cancer Genome Atlas Project_.
+#' doi:10.18129/B9.bioc.RTCGA.mutations <https://doi.org/10.18129/B9.bioc.RTCGA.mutations>, R package version
+#' 20151101.34.0, <https://bioconductor.org/packages/RTCGA.mutations>
+#'
 #' @format A data frame with columns:
 #' \describe{
 #'   \item{Chromosome}{The chromosome on which the mutation is located.}
@@ -23,9 +28,14 @@
 
 #' UCS.mutations Dataset From the RTCGA.mutations Package
 #'
-#' Mutations datasets from The Cancer Genome Atlas Project 2015-11-01 snapshot.
+#' Uterine Carcinosarcoma (UCS) Mutations datasets from The Cancer Genome Atlas Project 2015-11-01 snapshot.
 #'
 #' @source The Cancer Genome Atlas (TCGA) Program.
+#'
+#' @references
+#' Kosinski M (2024). _RTCGA.mutations: Mutations datasets from The Cancer Genome Atlas Project_.
+#' doi:10.18129/B9.bioc.RTCGA.mutations <https://doi.org/10.18129/B9.bioc.RTCGA.mutations>, R package version
+#' 20151101.34.0, <https://bioconductor.org/packages/RTCGA.mutations>
 #'
 #' @format A data frame with multiple rows and the following columns:
 #' \describe{

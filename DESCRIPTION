@@ -21,7 +21,10 @@ Imports:
     dplyr,
     GenomicRanges,
     ggplot2,
-    S4Vectors
+    RTCGA.mutations,
+    S4Vectors,
+    shiny,
+    shinyjs
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 Depends: 
@@ -29,7 +32,6 @@ Depends:
 Suggests: 
     knitr,
     rmarkdown,
-    RTCGA.mutations,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3

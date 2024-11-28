@@ -30,4 +30,9 @@ Uterine Carcinosarcoma (UCS) Mutations datasets from The Cancer Genome Atlas Pro
  filteredUCSFirst100SNP
 }
 }
+\references{
+#' Kosinski M (2024). \emph{RTCGA.mutations: Mutations datasets from The Cancer Genome Atlas Project}.
+doi:10.18129/B9.bioc.RTCGA.mutations \url{https://doi.org/10.18129/B9.bioc.RTCGA.mutations}, R package version
+20151101.34.0, \url{https://bioconductor.org/packages/RTCGA.mutations}
+}
 \keyword{datasets}

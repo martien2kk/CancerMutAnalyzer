@@ -61,7 +61,7 @@ library("CancerMutAnalyzer")
 To run the Shiny app:
 
 ``` r
-runTestingPackage() # not for Assessment 4; only for Assessment 5
+runCancerMutAnalyzer() # not for Assessment 4; only for Assessment 5
 ```
 
 ## Overview
