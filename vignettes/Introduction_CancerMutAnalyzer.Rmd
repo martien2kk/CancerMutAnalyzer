@@ -35,18 +35,18 @@ The `CancerMutAnalyzer` is an R package designed to streamline and enhance the w
 
 To download **CancerMutAnalyzer**, use the following commands:
 
-```{r, }
+``` r
 require("devtools")
 devtools::install_github("martien2kk/CancerMutAnalyzer", build_vignettes = TRUE)
 library("CancerMutAnalyzer")
 ```
 To list all sample functions available in the package:
-```{r, }
+``` r
 ls("package:CancerMutAnalyzer")
 ```
 
 To list all sample datasets available in the package:
-```{r, }
+``` r
 data(package = "CancerMutAnalyzer")
 ```
 
@@ -54,7 +54,7 @@ data(package = "CancerMutAnalyzer")
 
 ## Overview
 
-```{r, }
+``` r
 ls("package:CancerMutAnalyzer")
 data(package = "CancerMutAnalyzer") 
 browseVignettes("CancerMutAnalyzer")

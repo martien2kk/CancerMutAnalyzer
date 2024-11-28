@@ -5,7 +5,7 @@ library(shinyjs)  # Load shinyjs
 
 # Define UI
 ui <- navbarPage(title = "Visualize Mutation Frequencies",
-                 tabPanel("Bar Plot",
+                 tabPanel("Bar Plot for Mutation Frequencies",
                           sidebarLayout(
                             sidebarPanel(
                               useShinyjs(),  # Initialize shinyjs
