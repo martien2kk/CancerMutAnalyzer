@@ -72,5 +72,3 @@ test_that("filterMutations filters data correctly with specified conditions", {
   #   "Range filtering is only applicable to numeric columns."
   # )
 
-
-# [END]
